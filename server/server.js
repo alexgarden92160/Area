@@ -78,7 +78,7 @@ app.get("/test", (req, res) => {
 })
 
 app.get("/", (req, res) => {
-    res.send("Server Instance");
+    res.send("Server Instance V2");
 })
 
 
