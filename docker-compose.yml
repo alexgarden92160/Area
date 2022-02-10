@@ -4,6 +4,7 @@ services:
   server:
     build: ./server
     image: area-server:latest
+    container_name: area-server
     restart: on-failure
     ports:
       - "3000:3000"
