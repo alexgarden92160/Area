@@ -3,7 +3,7 @@ const mysql = require('mysql');
 const cors = require("cors");
 const app = express();
 const bodyParser = require("body-parser");
-const port = 8081;
+const port = 3000;
 
 const db = mysql.createPool({
     user: 'root',
@@ -78,7 +78,7 @@ app.get("/test", (req, res) => {
 })
 
 app.get("/", (req, res) => {
-    res.send("gg ca marche version 2");
+    res.send("gg ca marche");
 })
 
 
