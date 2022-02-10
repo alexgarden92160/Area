@@ -78,7 +78,7 @@ app.get("/test", (req, res) => {
 })
 
 app.get("/", (req, res) => {
-    res.send("gg ca marche version 2");
+    res.send("Server Instance");
 })
 
 
