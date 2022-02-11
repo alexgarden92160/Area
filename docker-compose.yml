@@ -7,4 +7,4 @@ services:
     container_name: area-server
     restart: on-failure
     ports:
-      - "3000:3000"
+      - "80:80"
