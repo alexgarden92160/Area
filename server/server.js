@@ -3,7 +3,7 @@ const mysql = require('mysql');
 const cors = require("cors");
 const app = express();
 const bodyParser = require("body-parser");
-const port = 3000;
+const port = 80;
 
 const db = mysql.createPool({
     user: 'root',

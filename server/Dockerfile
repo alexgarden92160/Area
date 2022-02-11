@@ -1,6 +1,6 @@
 FROM node:slim
 COPY . /app
 WORKDIR /app
-EXPOSE 3000
+EXPOSE 80
 RUN npm install
 CMD ["npm", "start"]
