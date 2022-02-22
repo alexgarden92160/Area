@@ -1,10 +1,23 @@
 version: '3.8'
 
 services:
-  server:
-    build: ./server
-    image: area-server:latest
-    container_name: area-server
-    restart: on-failure
+  # server:
+  #   build: ./server
+  #   image: area-server:latest
+  #   container_name: area-server
+  #   restart: on-failure
+  #   ports:
+  #     - "3000:3000"
+  db:
+    image: mysql:5
     ports:
-      - "3000:3000"
+      - "3306:3306"
+    expose:
+      - "3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    volumes:
+      - db_volume:/var/lib/mysql
+
+volumes:
+  db_volume:
