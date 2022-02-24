@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const port = 3000;
 
 const db = mysql.createPool({
-    host: 'onearea.online:3006',
+    // host: 'localhost:3006',
     user: 'root',
     password: 'password',
     database: 'area',
