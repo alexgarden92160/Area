@@ -1,26 +1,31 @@
-version: '3'
+version: '3.8'
 
 services:
   server:
     build: ./server
     image: area-server:latest
     container_name: area-server
+    depends_on:
+      - db
     restart: on-failure
     ports:
       - "3000:3000"
-    network_mode: host
+    networks:
+      - area
 
   db:
     image: mysql:5
-    ports:
-      - "3306:3306"
-    expose:
-      - "3306"
+    container_name: area-database
+    restart: on-failure
     environment:
       - MYSQL_ROOT_PASSWORD=password
     volumes:
       - db_volume:/var/lib/mysql
-    network_mode: host
+    networks:
+      - area
+
+networks:
+  area:
 
 volumes:
   db_volume:
