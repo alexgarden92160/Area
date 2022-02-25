@@ -7,7 +7,7 @@ services:
     container_name: area-server
     depends_on:
       - db
-    restart: on-failure
+    restart: always
     ports:
       - "3000:3000"
     networks:
@@ -16,7 +16,7 @@ services:
   db:
     image: mysql:5
     container_name: area-database
-    restart: on-failure
+    restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=password
     volumes:
