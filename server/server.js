@@ -6,11 +6,10 @@ const bodyParser = require("body-parser");
 const port = 3000;
 
 const db = mysql.createPool({
-    // host: 'localhost:3006',
-    user: 'root',
-    password: 'password',
-    database: 'area',
-    insecureAuth: true
+    host: process.env.MYSQL_HOST || 'localhost',
+    user: process.env.MYSQL_USER || 'root',
+    password: process.env.MYSQL_PASSWORD || 'password',
+    database: process.env.MYSQL_DATABASE || 'area'
 });
 
 app.use(bodyParser.json());
@@ -31,6 +30,10 @@ const defaultServices = {
 }
 
 const defaultActions = { "actions": [] }
+
+app.get('/testdb', (req, res) => {
+    db.query("insert into user (username, password) values ('testuser', 'testmdp')")
+})
 
 app.post("/register", (req, res) => {
     const username = req.body.username;

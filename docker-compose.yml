@@ -1,6 +1,16 @@
 version: '3.8'
 
 services:
+  db:
+    build: ./database
+    image: area-database:latest
+    container_name: area-database
+    restart: always
+    env_file:
+      - ./database/.env
+    volumes:
+      - db_volume:/var/lib/mysql
+
   server:
     build: ./server
     image: area-server:latest
@@ -8,24 +18,10 @@ services:
     depends_on:
       - db
     restart: always
+    env_file:
+      - ./server/.env
     ports:
       - "3000:3000"
-    networks:
-      - area
-
-  db:
-    image: mysql:5
-    container_name: area-database
-    restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=password
-    volumes:
-      - db_volume:/var/lib/mysql
-    networks:
-      - area
-
-networks:
-  area:
 
 volumes:
   db_volume:
