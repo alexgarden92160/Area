@@ -4,6 +4,7 @@ const cors = require("cors");
 const app = express();
 const bodyParser = require("body-parser");
 const port = 3000;
+const mailer = require("./service/mailService.js");
 
 const db = mysql.createPool({
     host: process.env.MYSQL_HOST || 'localhost',
@@ -14,6 +15,7 @@ const db = mysql.createPool({
 
 app.use(bodyParser.json());
 app.use(cors())
+mailer.init();
 
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
@@ -38,9 +40,9 @@ app.get('/testdb', (req, res) => {
 app.post("/register", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    const checkUsername = "select id from user where username=?";
+    const checkUsername = "select id from user where username=? and password =?";
 
-    db.query(checkUsername, [username], (err, result) => {
+    db.query(checkUsername, [username, password], (err, result) => {
         if (err) {
             res.status(503).send(err.message);
         }
@@ -54,8 +56,18 @@ app.post("/register", (req, res) => {
                 JSON.stringify(defaultActions)], (err, result) => {
                     if (err)
                         res.status(503).send(err.message);
-                    else
-                        res.send(result);
+                    else {
+                        const login = "select id from user where username=? and password=?";
+
+                        db.query(login, [username, password], (err, result) => {
+
+                            console.log(result);
+                            if (err)
+                                res.status(503).send(err.message);
+                            else
+                                res.send(result);
+                        })
+                    }
                 })
         }
     })
@@ -96,23 +108,23 @@ app.post("/login", (req, res) => {
     })
 })
 
-app.post("/service/active", (req, res) => {
+app.post("/service/active/set", (req, res) => {
     const service_name = req.body.service_name;
     const active_state = req.body.active_state;
-    const username = req.body.username;
+    const id = req.body.id;
 
-    const getServices = "select services from user where username=?";
+    const getServices = "select services from user where id=?";
 
-    db.query(getServices, [username], (err, result) => {
+    db.query(getServices, [id], (err, result) => {
         if (err) {
             res.status(503).send(err.message);
         }
         else {
             var tmp = JSON.parse(result);
             tmp[service_name].is_active = active_state;
-            const setServices = "update user set services=? where username=?";
+            const setServices = "update user set services=? where id=?";
 
-            db.query(setServices, [tmp, username], (err, result) => {
+            db.query(setServices, [tmp, id], (err, result) => {
                 if (err)
                     res.status(503).send(err.message);
                 else
@@ -120,4 +132,44 @@ app.post("/service/active", (req, res) => {
             })
         }
     })
+})
+
+app.post("/service/active/get", (req, res) => {
+    const service_name = req.body.service_name;
+    const id = req.body.id;
+
+    const getServices = "select services from user where id=?";
+
+    db.query(getServices, [id], (err, result) => {
+        if (err) {
+            res.status(503).send(err.message);
+        }
+        else {
+            res.send(result[service_name]);
+        }
+    })
+})
+
+app.post("/service/active/getall", (req, res) => {
+    const id = req.body.id;
+
+    const getServices = "select services from user where id=?";
+
+    db.query(getServices, [id], (err, result) => {
+        if (err) {
+            res.status(503).send(err.message);
+        }
+        else {
+            res.send(result);
+        }
+    })
+})
+
+app.post("/test-mail", async (req, res) => {
+    const email = req.body.email;
+    if (email.length > 0) {
+        const _status = await mailer.sendEmail(email);
+        return res.send(_status);
+    }
+    return res.status(400).json({ "error": "email not defined" })
 })
