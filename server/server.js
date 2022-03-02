@@ -53,7 +53,7 @@ app.post("/register", (req, res) => {
                             if (err)
                                 res.status(503).send(err.message);
                             else
-                                res.send(result);
+                                res.status(200).send(result);
                         })
                     }
                 })
@@ -110,6 +110,32 @@ app.post("/service/active/set", (req, res) => {
         else {
             var tmp = JSON.parse(result);
             tmp[service_name].is_active = active_state;
+            const setServices = "update user set services=? where id=?";
+
+            db.query(setServices, [tmp, id], (err, result) => {
+                if (err)
+                    res.status(503).send(err.message);
+                else
+                    res.send(result);
+            })
+        }
+    })
+})
+
+app.post("/service/token/set", (req, res) => {
+    const service_name = req.body.service_name;
+    const token = req.body.token;
+    const id = req.body.id;
+
+    const getServices = "select services from user where id=?";
+
+    db.query(getServices, [id], (err, result) => {
+        if (err) {
+            res.status(503).send(err.message);
+        }
+        else {
+            var tmp = JSON.parse(result);
+            tmp[service_name].token = token;
             const setServices = "update user set services=? where id=?";
 
             db.query(setServices, [tmp, id], (err, result) => {
