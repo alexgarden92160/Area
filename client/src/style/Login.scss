@@ -1,0 +1,74 @@
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+}
+
+.login {
+    display: flex;
+    flex-flow: column;
+    height: 350px;
+    width: 700px;
+    border-radius: 20px;
+   // box-shadow: inset 0 3px 6px rgba(0,0,0,0.16), 0 4px 6px rgba(0,0,0,0.45);
+    align-items: center;
+    justify-content: center;
+
+    form {
+        height: 100%;
+        // background-color: brown;
+        display: flex;
+        justify-content: center;
+        margin-top: 70px;
+    }
+
+    input {
+        background-color: black;
+        color:white;
+        border:none;
+        height: 30px;
+        width: 250px;
+        border-bottom:1px solid grey;
+        text-align: center;
+        margin-bottom: 10px;
+        border-radius: 0px;
+    }
+
+    input:focus{
+        outline:none;
+        border-bottom:1px solid $yellow;
+    }
+
+    label{
+        
+        font-weight: bold;
+    }
+
+    button {
+        background-color: $yellow;
+        border-style: hidden;
+        border-radius: 5px;
+        font-weight: bold;
+        width: 250px;
+        height: 40px;
+        margin-top: 20px;
+    }
+    a {
+        color: $yellow;
+    }
+    .register {        
+        margin-top: 10px;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;              
+    }
+    .error {
+        color: rgb(255, 0, 0);
+        font-style:italic;
+    }
+}

@@ -1,0 +1,16 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    .widgets{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .welcome {
+        color: black;
+        padding-top: 5%;
+        margin: 0%;
+        font-size: 200%;
+    }
+}

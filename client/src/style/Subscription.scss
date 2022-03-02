@@ -1,0 +1,43 @@
+.mastersub{
+    display: flex;    
+    flex-wrap: wrap;     
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    
+    .sub{
+        display: flex;    
+        flex-direction: column;
+        background-color: black;
+        border-style: solid;
+        border-radius: 10px;
+        border-color: $yellow;
+        font-size: 20px;
+        height: 40vh;
+        width: 30%;
+        margin:10px;
+        justify-content: center;
+        align-items: center;
+        button{
+            padding:0px;
+        text-align: center;
+        background-color: black;
+        border-style: none;
+        border-radius: 10px;
+        color: $yellow;
+        width : 100px;
+        height: auto;
+        padding: 2%;
+        font-size: $font_size_default;
+        margin-right: 15%;
+        }
+        button:hover{
+            font-weight: bold;
+            background-color: $yellow;
+            color:black;
+            font-size: calc($font_size_default + 3px);
+            width : 113px;
+            height: auto;           
+        }
+    }
+}

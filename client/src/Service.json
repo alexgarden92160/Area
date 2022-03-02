@@ -1,0 +1,11 @@
+{
+    "Weather": {
+        "is_active": false
+    },
+    "Youtube": {
+        "is_active": false
+    },
+    "Intra": {
+        "is_active": false
+    }
+}

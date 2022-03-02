@@ -1,0 +1,48 @@
+header {
+    display: flex;    
+    flex-direction: row;
+    
+    width: 100%;
+    height: 75px;
+    margin : 0%;
+    padding: 0%;
+
+    .back{
+        display: flex;    
+        flex-direction: row;
+        align-self: left;
+    }
+    .title {     
+        position: fixed;
+        align-self: right;
+        left : 47.5%;
+    }
+
+    .buttonplace{
+        display: flex;    
+        flex-direction: row;
+        align-items: center;
+        text-align: center;
+
+        .bt{        
+        text-align: center;
+        background-color: black;
+        border-style: none;
+        border-radius: 10px;
+        color: $yellow;
+        width : auto;
+        height: auto;
+        padding: 5%;
+        font-size: $font_size_default;
+        margin-left: 200%;       
+        }
+        .bt:hover{
+            font-weight: bold;
+            background-color: $yellow;
+            color:black;
+           // font-size: calc($font_size_default + 3px);
+            width : auto;
+            height: auto;            
+        }
+    }
+}
