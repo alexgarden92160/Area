@@ -1,0 +1,13 @@
+{
+    "Weather": {
+        "is_active": false
+    },
+    "Youtube": {
+        "is_active": false,
+        "token": ""
+    },
+    "Intra": {
+        "is_active": false,
+        "token": ""
+    }
+}

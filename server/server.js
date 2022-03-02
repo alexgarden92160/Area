@@ -5,6 +5,10 @@ const app = express();
 const bodyParser = require("body-parser");
 const port = 3000;
 const mailer = require("./service/mailService.js");
+const DefaultActions = require('./default_actions.json')
+const DefaultServices = require('./default_services.json')
+
+console.log(DefaultServices);
 
 const db = mysql.createPool({
     host: process.env.MYSQL_HOST || 'localhost',
@@ -19,22 +23,6 @@ mailer.init();
 
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
-})
-
-const defaultServices = {
-    "weather": {
-        "is_active": false
-    },
-    "youtube": {
-        "is_active": false,
-        "token": ""
-    },
-}
-
-const defaultActions = { "actions": [] }
-
-app.get('/testdb', (req, res) => {
-    db.query("insert into user (username, password) values ('testuser', 'testmdp')")
 })
 
 app.post("/register", (req, res) => {
@@ -52,8 +40,8 @@ app.post("/register", (req, res) => {
         else {
             const register = "insert into user (username, password, services, actions) values (?, ?, ?, ?)";
 
-            db.query(register, [username, password, JSON.stringify(defaultServices),
-                JSON.stringify(defaultActions)], (err, result) => {
+            db.query(register, [username, password, JSON.stringify(DefaultServices),
+                JSON.stringify(DefaultActions)], (err, result) => {
                     if (err)
                         res.status(503).send(err.message);
                     else {
