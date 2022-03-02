@@ -1,12 +1,12 @@
 {
-    "Weather": {
+    "weather": {
         "is_active": false
     },
-    "Youtube": {
+    "youtube": {
         "is_active": false,
         "token": ""
     },
-    "Intra": {
+    "intra": {
         "is_active": false,
         "token": ""
     }
