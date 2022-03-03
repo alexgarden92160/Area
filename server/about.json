@@ -1,0 +1,121 @@
+{
+    "name": "",
+    "actions": [
+        {
+            "name": "",
+            "parameters": [
+                {
+                    "name": "",
+                    "type": ""
+                }
+            ],
+            "reactions": [
+                ""
+            ]
+        }
+    ]
+}
+{
+    "services": [
+        {
+            "name": "weather",
+            "actions": [
+                {
+                    "name": "check_temperature",
+                    "parameters": [
+                        {
+                            "name": "city",
+                            "type": "string"
+                        },
+                        {
+                            "name": "threshold",
+                            "type": "string"
+                        },
+                        {
+                            "name": "symbol",
+                            "type": "list",
+                            "values": [
+                                "<",
+                                ">",
+                                "="
+                            ]
+                        }
+                    ],
+                    "reactions": [
+                        "email"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "youtube",
+            "actions": [
+                {
+                    "name": "check_new_comment",
+                    "parameters": [
+                        {
+                            "name": "url",
+                            "type": "string"
+                        }
+                    ],
+                    "return": [
+                        {
+                            "name": "new_comment_ids",
+                            "type": "array"
+                        }
+                    ],
+                    "reactions": [
+                        "delete_comment",
+                        "reply_to_comment"
+                    ]
+                },
+                {
+                    "name": "check_new_video",
+                    "parameters": [
+                        {
+                            "name": "url",
+                            "type": "string"
+                        }
+                    ],
+                    "return": [
+                        {
+                            "name": "new_video_urls",
+                            "type": "array"
+                        }
+                    ],
+                    "reactions": [
+                        "email",
+                        "like_video"
+                    ]
+                },
+                {
+                    "name": "check_likes",
+                    "parameters": [
+                        {
+                            "name": "url",
+                            "type": "string"
+                        },
+                        {
+                            "name": "threshold",
+                            "type": "int"
+                        }
+                    ],
+                    "reactions": [
+                        "email"
+                    ]
+                }
+            ],
+            "reactions": [
+                {
+                    "name": "reply_to_comment",
+                    "parameters": [
+                        {
+                            "name": "comment_id",
+                            "type": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
