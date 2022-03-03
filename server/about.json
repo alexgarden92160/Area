@@ -1,21 +1,4 @@
 {
-    "name": "",
-    "actions": [
-        {
-            "name": "",
-            "parameters": [
-                {
-                    "name": "",
-                    "type": ""
-                }
-            ],
-            "reactions": [
-                ""
-            ]
-        }
-    ]
-}
-{
     "services": [
         {
             "name": "weather",
@@ -111,8 +94,29 @@
                     "parameters": [
                         {
                             "name": "comment_id",
-                            "type": ""
+                            "type": "string"
                         }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "intra",
+            "actions": [
+                {
+                    "name": "check_remaining_duration",
+                    "parameters": [
+                        {
+                            "name": "project_name",
+                            "type": "string"
+                        },
+                        {
+                            "name": "time",
+                            "type": "string"
+                        }
+                    ],
+                    "reactions": [
+                        "email"
                     ]
                 }
             ]
