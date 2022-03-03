@@ -23,5 +23,15 @@ services:
     ports:
       - "3000:3000"
 
+  client:
+    build: ./client
+    image: area-client:latest
+    container_name: area-client
+    depends_on:
+      - server
+    restart: always
+    ports:
+      - "80:3000"
+
 volumes:
   db_volume:
