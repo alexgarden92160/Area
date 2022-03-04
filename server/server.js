@@ -7,6 +7,7 @@ const port = 3000;
 const mailer = require("./service/mailService.js");
 const DefaultActions = require('./default_actions.json')
 const DefaultServices = require('./default_services.json')
+const AboutJson = require('./about.json')
 
 console.log(DefaultServices);
 
@@ -186,4 +187,8 @@ app.post("/test-mail", async (req, res) => {
         return res.send(_status);
     }
     return res.status(400).json({ "error": "email not defined" })
+})
+
+app.get("/about.json", (req, res) => {
+    res.status(200).send(AboutJson)
 })
