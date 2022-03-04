@@ -182,7 +182,35 @@ app.post("/action/check_temperature", (req, res) => {
             var tmp = JSON.parse(result[0].actions);
             var actionId = tmp.actions.length > 0 ? tmp.actions[tmp.actions.length - 1].id + 1 : 0;
 
-            tmp.actions.push({"id": actionId, "name": "check_temperature", "city": city, "threshold": threshold, "symbol": symbol, "reactions": []})
+            tmp.actions.push({"id": actionId, "name": "check_temperature", "city": city, "threshold": threshold, "symbol": symbol, "reactions": []});
+            const setActions = "update user set actions=? where id=?";
+
+            db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
+                if (err)
+                    res.status(503).send(err.message);
+                else
+                    res.status(200).send(actionId);
+            })
+        }
+    })
+})
+
+app.post("/actions/check_crypto_value", (req, res) => {
+    const crypto = req.body.crypto;
+    const value = req.body.value;
+    const symbol = req.body.symbol;
+    const id = req.body.id;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err)
+            res.status(503).send(err.message);
+        else {
+            var tmp = JSON.parse(result[0].actions);
+            var actionId = tmp.actions.length > 0 ? tmp.actions[tmp.actions.length - 1].id + 1 : 0;
+
+            tmp.actions.push({"id": actionId, "name": "check_crypto_value", "crypto": crypto, "value": value, "symbol": symbol, "reactions": []});
             const setActions = "update user set actions=? where id=?";
 
             db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
@@ -209,7 +237,7 @@ app.post("/action/check_remaining_duration", (req, res) => {
             var tmp = JSON.parse(result[0].actions);
             var actionId = tmp.actions.length > 0 ? tmp.actions[tmp.actions.length - 1].id + 1 : 0;
 
-            tmp.actions.push({"id": actionId, "name": "check_remaining_duration", "project_name": project_name, "time": time, "reactions": []})
+            tmp.actions.push({"id": actionId, "name": "check_remaining_duration", "project_name": project_name, "time": time, "reactions": []});
             const setActions = "update user set actions=? where id=?";
 
             db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
@@ -254,6 +282,49 @@ app.post("/reaction/send_mail", (req, res) => {
                 else
                     res.status(200).send(reactionId);
             })
+        }
+    })
+})
+
+app.post("/action/remove", (req, res) => {
+    const actionId = req.body.actionId;
+    const id = req.body.id;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err)
+            res.status(503).send(err.message);
+        else {
+            var tmp = JSON.parse(result[0].actions);
+            //REMOVE ACTION OF id IN TMP;
+        }
+    })
+})
+
+app.post("/reaction/remove", (req, res) => {
+    const actionId = req.body.actionId;
+    const reactionId = req.body.reactionId;
+    const id = req.body.id;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err)
+            res.status(503).send(err.message);
+        else {
+            var tmp = JSON.parse(result[0].actions);
+            var count = 0;
+
+            for (let i = 0; i < tmp.actions.length; i++) {
+                if (tmp.actions[i].id === actionId) {
+                    count = i;
+                    break
+                }
+            }
+
+            var reactionId = tmp.actions[count].reactions.length > 0 ? tmp.actions[count].reactions[tmp.actions[count].reactions.length].id + 1 : 0;
+            //REMOVE REACTION OF reactionId in ACTION OF actionsId
         }
     })
 })

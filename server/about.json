@@ -34,7 +34,7 @@
             "name": "crypto",
             "actions": [
                 {
-                    "name": "check_value",
+                    "name": "check_crypto_value",
                     "parameters": [
                         {
                             "name": "crypto",
