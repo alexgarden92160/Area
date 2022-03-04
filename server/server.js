@@ -189,7 +189,7 @@ app.post("/action/check_temperature", (req, res) => {
                 if (err)
                     res.status(503).send(err.message);
                 else
-                    res.status(200).send(actionId);
+                    res.status(200).send(actionId.toString());
             })
         }
     })
@@ -217,7 +217,7 @@ app.post("/actions/check_crypto_value", (req, res) => {
                 if (err)
                     res.status(503).send(err.message);
                 else
-                    res.status(200).send(actionId);
+                    res.status(200).send(actionId.toString());
             })
         }
     })
@@ -244,7 +244,7 @@ app.post("/action/check_remaining_duration", (req, res) => {
                 if (err)
                     res.status(503).send(err.message);
                 else
-                    res.status(200).send(actionId);
+                    res.status(200).send(actionId.toString());
             })
         }
     })
@@ -280,7 +280,7 @@ app.post("/reaction/send_mail", (req, res) => {
                 if (err)
                     res.status(503).send(err.message);
                 else
-                    res.status(200).send(reactionId);
+                    res.status(200).send(reactionId.toString());
             })
         }
     })
@@ -288,23 +288,6 @@ app.post("/reaction/send_mail", (req, res) => {
 
 app.post("/action/remove", (req, res) => {
     const actionId = req.body.actionId;
-    const id = req.body.id;
-
-    const getActions = "select actions from user where id=?";
-
-    db.query(getActions, [id], (err, result) => {
-        if (err)
-            res.status(503).send(err.message);
-        else {
-            var tmp = JSON.parse(result[0].actions);
-            //REMOVE ACTION OF id IN TMP;
-        }
-    })
-})
-
-app.post("/reaction/remove", (req, res) => {
-    const actionId = req.body.actionId;
-    const reactionId = req.body.reactionId;
     const id = req.body.id;
 
     const getActions = "select actions from user where id=?";
@@ -323,8 +306,57 @@ app.post("/reaction/remove", (req, res) => {
                 }
             }
 
-            var reactionId = tmp.actions[count].reactions.length > 0 ? tmp.actions[count].reactions[tmp.actions[count].reactions.length].id + 1 : 0;
-            //REMOVE REACTION OF reactionId in ACTION OF actionsId
+            tmp.actions.splice(count, 1);
+            const setActions = "update user set actions=? where id=?";
+
+            db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
+                if (err)
+                    res.status(503).send(err.message);
+                else
+                    res.status(200).send(count.toString())
+            })
+        }
+    })
+})
+
+app.post("/reaction/remove", (req, res) => {
+    const actionId = req.body.actionId;
+    const reactionId = req.body.reactionId;
+    const id = req.body.id;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err)
+            res.status(503).send(err.message);
+        else {
+            var tmp = JSON.parse(result[0].actions);
+            var countAction = 0;
+            var countReaction = 0;
+
+            for (let i = 0; i < tmp.actions.length; i++) {
+                if (tmp.actions[i].id === actionId) {
+                    countAction = i;
+                    break
+                }
+            }
+
+            for (let i = 0; i < tmp.actions[countAction].length; i++) {
+                if (tmp.actions[countAction].reactions[i].id === reactionId) {
+                    countReaction = i;
+                    break;
+                }
+            }
+
+            tmp.actions[countAction].reactions.splice(countReaction, 1);
+            const setActions = "update user set actions=? where id=?";
+
+            db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
+                if (err)
+                    res.status(503).send(err.message);
+                else
+                    res.status(200).send(countReaction.toString())
+            })
         }
     })
 })
