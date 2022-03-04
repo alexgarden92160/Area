@@ -179,6 +179,95 @@ app.post("/service/token/set", (req, res) => {
     })
 })
 
+app.post("/reaction/send_mail", (req, res) => {
+    const message = req.body.message;
+    const id = req.body.id;
+    const actionId = req.body.actionId;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err) {
+            res.status(503).send(err.message);
+        }
+        else {
+            var tmp = JSON.parse(result[0].actions);
+            var count = 0;
+
+            for (let i = 0; i < tmp.actions.length; i++) {
+                if (tmp.actions[i].id === actionId)
+                    count = i;
+                    break
+            }
+
+            tmp.actions[count].reactions.push({"name": "check_temperature", "city": city, "threshold": threshold, "symbol": symbol})
+            const setReactions = "update user set actions=? where id=?";
+
+            db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
+                if (err)
+                    res.status(503).send(err.message);
+                else
+                    res.status(200).send(result);
+            })
+        }
+    })
+})
+
+app.post("/action/check_temperature", (req, res) => {
+    const city = req.body.city;
+    const threshold = req.body.threshold;
+    const symbol = req.body.symbol;
+    const id = req.body.id;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err) {
+            res.status(503).send(err.message);
+        }
+        else {
+            var tmp = JSON.parse(result[0].actions);
+            tmp.actions.push({"name": "check_temperature", "city": city, "threshold": threshold, "symbol": symbol, "reactions": []})
+            const setActions = "update user set actions=? where id=?";
+
+            db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
+                if (err)
+                    res.status(503).send(err.message);
+                else
+                    res.status(200).send(result);
+            })
+        }
+    })
+})
+
+app.post("/action/check_remaining_duration", (req, res) => {
+    const project_name = req.body.project_name;
+    const time = req.body.time;
+    const id = req.body.id;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err) {
+            res.status(503).send(err.message);
+        }
+        else {
+            var tmp = JSON.parse(result[0].actions);
+            var actionId = tmp.actions.length > 0 ? parseInt(tmp.actions[length -1]) + 1 : 0;
+
+            tmp.actions.push({"id": actionId, "name": "check_remaining_duration", "project_name": project_name, "time": time, "reactions": []})
+            const setActions = "update user set actions=? where id=?";
+
+            db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
+                if (err)
+                    res.status(503).send(err.message);
+                else
+                    res.status(200).send(result);
+            })
+        }
+    })
+})
+
 app.post("/test-mail", async (req, res) => {
     const email = req.body.email;
     if (email.length > 0) {
