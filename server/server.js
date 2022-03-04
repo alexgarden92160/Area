@@ -9,8 +9,6 @@ const DefaultActions = require('./default_actions.json')
 const DefaultServices = require('./default_services.json')
 const AboutJson = require('./about.json')
 
-console.log(DefaultServices);
-
 const db = mysql.createPool({
     host: process.env.MYSQL_HOST || 'localhost',
     user: process.env.MYSQL_USER || 'root',
@@ -36,22 +34,18 @@ app.get("/test", (req, res) => {
     db.query(login, (err, result) => {
         if (err)
             res.status(401).send("Test failed: " + err.message);
-        else {
+        else
             res.send(result);
-        }
     })
 })
 
 app.post("/login", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    console.log(username);
-    console.log(password);
+
     const login = "select id from user where username=? and password=?";
 
     db.query(login, [username, password], (err, result) => {
-
-        console.log(result);
         if (err)
             res.status(503).send(err.message);
         else if (result.length == 0)
@@ -64,15 +58,14 @@ app.post("/login", (req, res) => {
 app.post("/register", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
+
     const checkUsername = "select id from user where username=? and password =?";
 
     db.query(checkUsername, [username, password], (err, result) => {
-        if (err) {
+        if (err)
             res.status(503).send(err.message);
-        }
-        else if (result.length >= 1) {
+        else if (result.length >= 1)
             res.status(409).send(`Username ${username} already used`);
-        }
         else {
             const register = "insert into user (username, password, services, actions) values (?, ?, ?, ?)";
 
@@ -105,9 +98,8 @@ app.post("/service/active/set", (req, res) => {
     const getServices = "select services from user where id=?";
 
     db.query(getServices, [id], (err, result) => {
-        if (err) {
+        if (err)
             res.status(503).send(err.message);
-        }
         else {
             var tmp = JSON.parse(result[0].services);
             tmp[service_name].is_active = active_state;
@@ -130,12 +122,10 @@ app.post("/service/active/get", (req, res) => {
     const getServices = "select services from user where id=?";
 
     db.query(getServices, [id], (err, result) => {
-        if (err) {
+        if (err)
             res.status(503).send(err.message);
-        }
-        else {
+        else
             res.status(200).send(JSON.parse(result[0].services)[service_name]);
-        }
     })
 })
 
@@ -145,12 +135,10 @@ app.post("/service/active/getall", (req, res) => {
     const getServices = "select services from user where id=?";
 
     db.query(getServices, [id], (err, result) => {
-        if (err) {
+        if (err)
             res.status(503).send(err.message);
-        }
-        else {
+        else
             res.send(JSON.parse(result[0].services));
-        }
     })
 })
 
@@ -162,9 +150,8 @@ app.post("/service/token/set", (req, res) => {
     const getServices = "select services from user where id=?";
 
     db.query(getServices, [id], (err, result) => {
-        if (err) {
+        if (err)
             res.status(503).send(err.message);
-        }
         else {
             var tmp = JSON.parse(result[0].services);
             tmp[service_name].token = token;
@@ -174,41 +161,7 @@ app.post("/service/token/set", (req, res) => {
                 if (err)
                     res.status(503).send(err.message);
                 else
-                    res.status(200).send(result);
-            })
-        }
-    })
-})
-
-app.post("/reaction/send_mail", (req, res) => {
-    const message = req.body.message;
-    const id = req.body.id;
-    const actionId = req.body.actionId;
-
-    const getActions = "select actions from user where id=?";
-
-    db.query(getActions, [id], (err, result) => {
-        if (err) {
-            res.status(503).send(err.message);
-        }
-        else {
-            var tmp = JSON.parse(result[0].actions);
-            var count = 0;
-
-            for (let i = 0; i < tmp.actions.length; i++) {
-                if (tmp.actions[i].id === actionId)
-                    count = i;
-                    break
-            }
-
-            tmp.actions[count].reactions.push({"name": "check_temperature", "city": city, "threshold": threshold, "symbol": symbol})
-            const setReactions = "update user set actions=? where id=?";
-
-            db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
-                if (err)
-                    res.status(503).send(err.message);
-                else
-                    res.status(200).send(result);
+                    res.status(200).send('OK');
             })
         }
     })
@@ -223,19 +176,20 @@ app.post("/action/check_temperature", (req, res) => {
     const getActions = "select actions from user where id=?";
 
     db.query(getActions, [id], (err, result) => {
-        if (err) {
+        if (err)
             res.status(503).send(err.message);
-        }
         else {
             var tmp = JSON.parse(result[0].actions);
-            tmp.actions.push({"name": "check_temperature", "city": city, "threshold": threshold, "symbol": symbol, "reactions": []})
+            var actionId = tmp.actions.length > 0 ? tmp.actions[tmp.actions.length - 1].id + 1 : 0;
+
+            tmp.actions.push({"id": actionId, "name": "check_temperature", "city": city, "threshold": threshold, "symbol": symbol, "reactions": []})
             const setActions = "update user set actions=? where id=?";
 
             db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
                 if (err)
                     res.status(503).send(err.message);
                 else
-                    res.status(200).send(result);
+                    res.status(200).send(actionId);
             })
         }
     })
@@ -249,12 +203,11 @@ app.post("/action/check_remaining_duration", (req, res) => {
     const getActions = "select actions from user where id=?";
 
     db.query(getActions, [id], (err, result) => {
-        if (err) {
+        if (err)
             res.status(503).send(err.message);
-        }
         else {
             var tmp = JSON.parse(result[0].actions);
-            var actionId = tmp.actions.length > 0 ? parseInt(tmp.actions[length -1]) + 1 : 0;
+            var actionId = tmp.actions.length > 0 ? tmp.actions[tmp.actions.length - 1].id + 1 : 0;
 
             tmp.actions.push({"id": actionId, "name": "check_remaining_duration", "project_name": project_name, "time": time, "reactions": []})
             const setActions = "update user set actions=? where id=?";
@@ -263,7 +216,43 @@ app.post("/action/check_remaining_duration", (req, res) => {
                 if (err)
                     res.status(503).send(err.message);
                 else
-                    res.status(200).send(result);
+                    res.status(200).send(actionId);
+            })
+        }
+    })
+})
+
+app.post("/reaction/send_mail", (req, res) => {
+    const email = req.body.email;
+    const message = req.body.message;
+    const actionId = req.body.actionId;
+    const id = req.body.id;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err)
+            res.status(503).send(err.message);
+        else {
+            var tmp = JSON.parse(result[0].actions);
+            var count = 0;
+
+            for (let i = 0; i < tmp.actions.length; i++) {
+                if (tmp.actions[i].id === actionId) {
+                    count = i;
+                    break
+                }
+            }
+
+            var reactionId = tmp.actions[count].reactions.length > 0 ? tmp.actions[count].reactions[tmp.actions[count].reactions.length].id + 1 : 0;
+            tmp.actions[count].reactions.push({"id": reactionId, "name": "send_mail", "email": email, "message": message});
+            const setActions = "update user set actions=? where id=?";
+
+            db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
+                if (err)
+                    res.status(503).send(err.message);
+                else
+                    res.status(200).send(reactionId);
             })
         }
     })

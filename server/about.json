@@ -31,6 +31,36 @@
             ]
         },
         {
+            "name": "crypto",
+            "actions": [
+                {
+                    "name": "check_value",
+                    "parameters": [
+                        {
+                            "name": "crypto",
+                            "type": "string"
+                        },
+                        {
+                            "name": "value",
+                            "type": "string"
+                        },
+                        {
+                            "name": "symbol",
+                            "type": "list",
+                            "values": [
+                                "<",
+                                ">",
+                                "="
+                            ]
+                        }
+                    ],
+                    "reactions": [
+                        "email"
+                    ]
+                }
+            ]
+        },
+        {
             "name": "youtube",
             "actions": [
                 {
