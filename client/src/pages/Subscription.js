@@ -28,10 +28,10 @@ class Subscription extends React.Component {
           <h1 className="title">AREA</h1>
         </header >
         <div className='mastersub'>
-          <Services name="Weather" />
-          <Services />
-          <Services />
-          <Services />
+          <Services name="weather" />
+          <Services name="crypto" />
+          <Services name="youtube" />
+          <Services name="intra" />
           <Services />
           <Services />
         </div>

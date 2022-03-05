@@ -25,14 +25,16 @@ const Login = () => {
         axios.post("http://onearea.online:3000/service/active/getall", {
           id: res.data[0].id
         }).then((resa) => {
-          console.log(resa.data[0]);
-          if (res.status === 200) {
-            // sessionStorage.setItem("Weather", resa.data[0].Weather.is_active);
-            // sessionStorage.setItem("Youtube", resa.data[0].Youtube.is_active);
+          console.log(resa.status)
+          if (resa.status === 200) {
+            sessionStorage.setItem("weather", resa.data.weather.is_active);
+            sessionStorage.setItem("youtube", resa.data.youtube.is_active);
+            //sessionStorage.setItem("crypto", resa.data.crypto.is_active);
+            sessionStorage.setItem("intra", resa.data.intra.is_active);
           }
         })
         navigation("/", { replace: true });
-        //window.location.reload(false);
+        window.location.reload(false);
       }
     })
       .catch((error) => {

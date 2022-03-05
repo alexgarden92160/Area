@@ -23,11 +23,14 @@ const Register = () => {
         sessionStorage.setItem("id", res.data[0].id);
 
         axios.post("http://onearea.online:3000/active/getall", {
+          id: res.data[0].id
         }).then((resa) => {
-          console.log(resa.data);
-          if (res.status === 200) {
-            sessionStorage.setItem("Weather", resa.data[0]);
-            sessionStorage.setItem("Youtube", resa.data[0]);
+          if (resa.status === 200) {
+
+            sessionStorage.setItem("weather", resa.data.weather.is_active);
+            sessionStorage.setItem("youtube", resa.data.youtube.is_active);
+            //sessionStorage.setItem("crypto", resa.data.crypto.is_active);
+            sessionStorage.setItem("intra", resa.data.intra.is_active);
           }
         })
 

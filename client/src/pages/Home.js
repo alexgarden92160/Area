@@ -5,29 +5,35 @@ import Hservice from '../components/Handlingserv';
 import Popup from '../components/Popup';
 import Weather from '../components/Weather'
 import Mail from '../components/Mail'
+import Pattern from '../components/Pattern';
+import axios from 'axios';
+
 class Home extends React.Component {
   static instance;
-  // constructor(props) {
-  //   super(props);
-  //   Home.instance = this;
-  //   this.state = { components: [], ids: [] };
-  //   this.cpt = 0;
-  //   this.loadWidgets();
-  // }
+  constructor(props) {
+    super(props);
+    Home.instance = this;
+    this.state = { actions: [], visible: false };
+    //   this.cpt = 0;
+    //   this.loadWidgets();
+  }
 
-  // addComp(comp) {
-  //   console.log(comp.type.name);
-  //   var tmp = JSON.parse(sessionStorage.getItem("widgets"))
-  //   tmp.list.push(comp.type.name);
-  //   sessionStorage.setItem("widgets", JSON.stringify(tmp));
-  //   console.log(sessionStorage.getItem("widgets"));
-  //   axios.post("http://localhost:8080/widgets/add", {
-  //     id: sessionStorage.getItem("id"),
-  //     widgets: sessionStorage.getItem("widgets")
-  //   }).then(() => {
-  //     this.addComponent(comp)
-  //   })
-  // }
+  addActions(comp) {
+    var comptmp = this.state.actions
+    //   console.log(comp.type.name);
+    //   var tmp = JSON.parse(sessionStorage.getItem("widgets"))
+    comptmp.push(comp);
+    this.setState({ actions: comptmp });
+
+    //   sessionStorage.setItem("widgets", JSON.stringify(tmp));
+    //   console.log(sessionStorage.getItem("widgets"));
+    //   axios.post("http://localhost:8080/widgets/add", {
+    //     id: sessionStorage.getItem("id"),
+    //     widgets: sessionStorage.getItem("widgets")
+    //   }).then(() => {
+    //     this.addComponent(comp)
+    //   })
+  }
 
   // addComponent(comp) {
   //   var tmpcomp = this.state.components;
@@ -86,9 +92,6 @@ class Home extends React.Component {
   //     return <Crypto id={this.getCurrentId()} />
   // }
 
-  state = {
-    visible: false
-  }
   switch = () => {
     if (this.state.visible === true) {
       this.setState({
@@ -118,8 +121,9 @@ class Home extends React.Component {
             <Popup
               visible={this.state.visible}
               hide={this.hide} />
-            <Mail />
-            {/* <p>Bienvenue {sessionStorage.getItem("name")}</p> */}
+
+            <div>{this.state.actions}</div>
+
           </div>
         </div>
       </body>
