@@ -1,20 +1,14 @@
 const express = require('express');
-const mysql = require('mysql');
 const cors = require("cors");
 const app = express();
 const bodyParser = require("body-parser");
 const port = 3000;
+const db = require('./database/mysql.js')
 const mailer = require("./service/mailService.js");
 const DefaultActions = require('./default_actions.json')
 const DefaultServices = require('./default_services.json')
 const AboutJson = require('./about.json')
-
-const db = mysql.createPool({
-    host: process.env.MYSQL_HOST || 'localhost',
-    user: process.env.MYSQL_USER || 'root',
-    password: process.env.MYSQL_PASSWORD || 'password',
-    database: process.env.MYSQL_DATABASE || 'area'
-});
+const intra = require('./actions/intra.js')
 
 app.use(bodyParser.json());
 app.use(cors())
@@ -37,6 +31,13 @@ app.get("/test", (req, res) => {
         else
             res.send(result);
     })
+})
+
+app.get("/test_api", async (req, res) => {
+        const _status = await intra.check_remaining_duration('https://intra.epitech.eu/auth-8a179357767b1abdb040f7e44696ec1ab089c46d', 'Year-End Project - AREA', 33);
+
+        console.log(_status);
+        res.send(_status);
 })
 
 app.post("/login", (req, res) => {
@@ -167,6 +168,19 @@ app.post("/service/token/set", (req, res) => {
     })
 })
 
+app.post("/action/getall", (req, res) => {
+    const id = req.body.id;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err)
+            res.status(503).send(err.message);
+        else
+            res.send(JSON.parse(result[0].actions));
+    })
+})
+
 app.post("/action/check_temperature", (req, res) => {
     const city = req.body.city;
     const threshold = req.body.threshold;
@@ -195,7 +209,7 @@ app.post("/action/check_temperature", (req, res) => {
     })
 })
 
-app.post("/actions/check_crypto_value", (req, res) => {
+app.post("/action/check_crypto_value", (req, res) => {
     const crypto = req.body.crypto;
     const value = req.body.value;
     const symbol = req.body.symbol;
