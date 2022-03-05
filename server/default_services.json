@@ -2,6 +2,9 @@
     "weather": {
         "is_active": false
     },
+    "crypto": {
+        "is_active": false
+    },
     "youtube": {
         "is_active": false,
         "token": ""
