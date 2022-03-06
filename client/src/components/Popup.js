@@ -1,9 +1,7 @@
-import axios from 'axios';
-import React, { useState } from "react";
+import React from "react";
 import Draggable from 'react-draggable';
 import Home from '../pages/Home';
 import Pattern from './Pattern';
-import { useNavigate } from "react-router";
 import about from "../about.json";
 
 function Popup(props) {

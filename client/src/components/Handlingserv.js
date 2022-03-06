@@ -1,7 +1,4 @@
-import axios from 'axios';
 import React, { useState } from "react";
-import Draggable from 'react-draggable';
-import Home from '../pages/Home';
 import { useNavigate } from "react-router"
 
 function Hservice(props) {

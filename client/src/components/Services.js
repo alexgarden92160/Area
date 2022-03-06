@@ -1,7 +1,4 @@
-import Header from './Header';
-import Popup from 'reactjs-popup';
-import Service from '../Service.json'
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from 'axios';
 
 function Services(props) {
