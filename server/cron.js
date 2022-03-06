@@ -42,8 +42,8 @@ function cronFunc() {
                                 var reaction = action.reactions[k];
                                 switch (reaction.name) {
                                     case "send_mail":
-                                        console.log("normalement ca devrait envoyer un email");
-                                        await mailer.sendEmail(reaction.email, reaction.message);
+                                        await mailer.sendEmail(reaction.email, "Message from " + action.name
+                                            + ": " + reaction.message);
                                         break;
                                     case "reply_to_comment":
                                         break;

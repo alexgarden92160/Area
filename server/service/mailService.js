@@ -15,7 +15,7 @@ mailer.init = () => {
 
 mailer.sendEmail = async (email, message) => {
     await mailer.transporter.sendMail({
-        from: '"AREA" <zumba.cafewe24@gmail.com>',
+        from: '"ONEAREA ONLINE" <zumba.cafewe24@gmail.com>',
         to: email,
         subject: "",
         text: message
