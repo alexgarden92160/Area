@@ -12,6 +12,7 @@ export default function Pattern(props) {
     const [r, setR] = useState([])
     let tmp = []
     const [ac, setAc] = useState("")
+    let jsonfinal;
 
     function compare_type(type, j, handle) {
         let save = []
@@ -61,15 +62,14 @@ export default function Pattern(props) {
         let json = new Object();
 
         for (var i in props.name)
-            json[props.name[i]] = props.val[i]
+            json[props.name[i]] = handle[i]
         json.id = sessionStorage.getItem("id")
         return json
     }
 
     const post_param = async () => {
-        await axios.post(`http://onearea.online:3000/action/${props.actionName}`, {
-            make_json
-        }
+        jsonfinal = make_json()
+        await axios.post(`http://onearea.online:3000/action/${props.actionName}`, jsonfinal
         ).then(resa => { setAc(resa.data); console.log(ac) })
     }
 
@@ -105,6 +105,5 @@ export default function Pattern(props) {
                 <div>{r}</div>
             </div>
         </Draggable>
-
     );
 }
