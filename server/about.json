@@ -198,19 +198,21 @@
         {
             "name": "area",
             "actions": [],
-            "reactions": {
-                "name": "send_mail",
-                "parameters": [
-                    {
-                        "name": "message",
-                        "type": "string"
-                    },
-                    {
-                        "name": "email",
-                        "type": "string"
-                    }
-                ]
-            }
+            "reactions": [
+                {
+                    "name": "send_mail",
+                    "parameters": [
+                        {
+                            "name": "message",
+                            "type": "string"
+                        },
+                        {
+                            "name": "email",
+                            "type": "string"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
