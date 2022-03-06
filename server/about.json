@@ -27,6 +27,31 @@
                     "reactions": [
                         "send_mail"
                     ]
+                },
+                {
+                    "name": "check_humidity",
+                    "parameters": [
+                        {
+                            "name": "city",
+                            "type": "string"
+                        },
+                        {
+                            "name": "threshold",
+                            "type": "string"
+                        },
+                        {
+                            "name": "symbol",
+                            "type": "list",
+                            "values": [
+                                "<",
+                                ">",
+                                "="
+                            ]
+                        }
+                    ],
+                    "reactions": [
+                        "send_mail"
+                    ]
                 }
             ]
         },
