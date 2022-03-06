@@ -62,6 +62,58 @@ class Global {
     static services = [];
     static actions = [];
     static reactions = [];
+    static userActions = [];
+    static username = "";
+    static id = -1;
+
+    static setServiceState(serviceName, activeState) {
+        for (var s in this.services) {
+            if (this.services[s].name === serviceName) {
+                this.services[s].isActive = activeState;
+                break;
+            }
+        }
+    }
+
+    static switchServiceState(serviceName) {
+        for (var s in this.services) {
+            if (this.services[s].name === serviceName) {
+                this.services[s].isActive = !this.services[s].isActive;
+                break;
+            }
+        }
+    }
+
+    static getServiceState(serviceName) {
+        for (var s in this.services) {
+            if (this.services[s].name === serviceName) {
+                return this.services[s].isActive;
+            }
+        }
+        return false;
+    }
+
+    static setUsername(s) {
+        this.username = s;
+    }
+
+    static setUserId(i) {
+        this.id = i;
+    }
+
+    static loadUserData() {
+        axios.post("http://onearea.online:3000/service/active/getall", { id: this.id }
+        ).then((value) => {
+            var serv = value.data;
+
+            this.setServiceState("weather", serv["weather"]["is_active"]);
+            this.setServiceState("intra", serv["intra"]["is_active"]);
+            this.setServiceState("youtube", serv["youtube"]["is_active"]);
+            this.setServiceState("area", serv["area"]["is_active"]);
+            this.setServiceState("crypto", serv["crypto"]["is_active"]);
+            this.setServiceState("covid", serv["covid"]["is_active"]);
+        });
+    }
 
     static loadData() {
         this.services = []
@@ -94,6 +146,5 @@ class Global {
         });
     }
 }
-
 
 export default Global;
