@@ -12,5 +12,8 @@
     "intra": {
         "is_active": false,
         "token": ""
+    },
+    "area": {
+        "is_active": true
     }
 }

@@ -53,7 +53,8 @@
                         "send_mail"
                     ]
                 }
-            ]
+            ],
+            "reactions": []
         },
         {
             "name": "crypto",
@@ -83,7 +84,8 @@
                         "send_mail"
                     ]
                 }
-            ]
+            ],
+            "reactions": []
         },
         {
             "name": "youtube",
@@ -94,12 +96,6 @@
                         {
                             "name": "url",
                             "type": "string"
-                        }
-                    ],
-                    "return": [
-                        {
-                            "name": "new_comment_ids",
-                            "type": "array"
                         }
                     ],
                     "reactions": [
@@ -113,12 +109,6 @@
                         {
                             "name": "url",
                             "type": "string"
-                        }
-                    ],
-                    "return": [
-                        {
-                            "name": "new_video_urls",
-                            "type": "array"
                         }
                     ],
                     "reactions": [
@@ -148,19 +138,14 @@
                     "name": "reply_to_comment",
                     "parameters": [
                         {
-                            "name": "new_comment_ids",
-                            "type": "array"
+                            "name": "message",
+                            "type": "string"
                         }
                     ]
                 },
                 {
                     "name": "like_video",
-                    "parameters": [
-                        {
-                            "name": "new_video_urls",
-                            "type": "array"
-                        }
-                    ]
+                    "parameters": []
                 }
             ]
         },
@@ -232,24 +217,27 @@
                         "send_mail"
                     ]
                 }
-            ]
+            ],
+            "reactions": []
         },
         {
             "name": "area",
             "actions": [],
-            "reactions": {
-                "name": "send_mail",
-                "parameters": [
-                    {
-                        "name": "message",
-                        "type": "string"
-                    },
-                    {
-                        "name": "email",
-                        "type": "string"
-                    }
-                ]
-            }
+            "reactions": [
+                {
+                    "name": "send_mail",
+                    "parameters": [
+                        {
+                            "name": "message",
+                            "type": "string"
+                        },
+                        {
+                            "name": "email",
+                            "type": "string"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
