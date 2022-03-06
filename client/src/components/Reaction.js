@@ -34,7 +34,8 @@ export default function Reaction(props) {
 
         for (var i in props.name)
             json[props.name[i]] = props.val[i]
-
+        json.id = sessionStorage.getItem("id")
+        json.actionId = props.actionId
         console.log(json)
 
         return json
@@ -43,9 +44,7 @@ export default function Reaction(props) {
     function post_param() {
         console.log(props.actionId)
         axios.post(`http://onearea.online:3000/reaction/${props.actionName}`, {
-            make_json,
-            id: sessionStorage.getItem("id"),
-            actionId: props.actionId
+            make_json
         }
         ).then(resa => console.log(resa))
     }

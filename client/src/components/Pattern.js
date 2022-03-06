@@ -62,14 +62,13 @@ export default function Pattern(props) {
 
         for (var i in props.name)
             json[props.name[i]] = props.val[i]
-
+        json.id = sessionStorage.getItem("id")
         return json
     }
 
     const post_param = async () => {
         await axios.post(`http://onearea.online:3000/action/${props.actionName}`, {
-            make_json,
-            id: sessionStorage.getItem("id")
+            make_json
         }
         ).then(resa => { setAc(resa.data); console.log(ac) })
     }
@@ -93,7 +92,6 @@ export default function Pattern(props) {
         setR(tmp)
         console.log(r)
     }
-
     return (
         <Draggable>
             <div className='widget'>

@@ -29,8 +29,10 @@ const Register = () => {
 
             sessionStorage.setItem("weather", resa.data.weather.is_active);
             sessionStorage.setItem("youtube", resa.data.youtube.is_active);
-            //sessionStorage.setItem("crypto", resa.data.crypto.is_active);
+            sessionStorage.setItem("crypto", resa.data.crypto.is_active);
             sessionStorage.setItem("intra", resa.data.intra.is_active);
+            sessionStorage.setItem("area", resa.data.area.is_active);
+            sessionStorage.setItem("covid", resa.data.covid.is_active);
           }
         })
 
