@@ -3,15 +3,18 @@ const cors = require("cors");
 const app = express();
 const bodyParser = require("body-parser");
 const port = 3000;
-const db = require('./database/mysql.js')
-const mailer = require("./service/mailService.js");
+const db = require('./database/mysql.js');
+const mailer = require("./service/mailService.js");;
 const DefaultActions = require('./default_actions.json')
-const DefaultServices = require('./default_services.json')
-const AboutJson = require('./about.json')
-const intra = require('./actions/intra.js')
+const DefaultServices = require('./default_services.json');
+const AboutJson = require('./about.json');
+const intra = require('./actions/intra.js');
+const cron = require('./cron.js');
 
 app.use(bodyParser.json());
 app.use(cors())
+
+cron();
 mailer.init();
 
 app.listen(port, () => {
@@ -34,10 +37,11 @@ app.get("/test", (req, res) => {
 })
 
 app.get("/test_api", async (req, res) => {
-    const _status = await intra.check_remaining_duration('https://intra.epitech.eu/auth-8a179357767b1abdb040f7e44696ec1ab089c46d', 'Year-End Project - AREA', 33);
+    const _status = await intra.check_remaining_duration('https://intra.epitech.eu/auth-8a179357767b1abdb040f7e44696ec1ab089c46d', 33);
 
     console.log(_status);
     res.send(_status);
+
 })
 
 app.post("/login", (req, res) => {
