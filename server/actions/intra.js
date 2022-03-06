@@ -18,6 +18,38 @@ intra.check_remaining_duration = async (token, project_name, time) => {
     return status;
 }
 
+intra.check_gpa = async (token, number, symbol) => {
+    var status = false;
+
+    try {
+        const response = await axios.get(token + '/user/?format=json');
+        var element = response.data.gpa[0].gpa;
+
+        console.log(element);
+
+        switch (symbol) {
+            case '=':
+                if (parseInt(element) === parseInt(number))
+                    status = true;
+                break;
+            case '>':
+                if (parseInt(element) > parseInt(number))
+                    status = true;
+                break;
+            case '<':
+                if (parseInt(element) < parseInt(number))
+                    status = true;
+                break;
+            default:
+                break;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+    return status;
+}
+
 intra.check_credit = async (token, number, symbol) => {
     var status = false;
 

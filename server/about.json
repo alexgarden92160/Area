@@ -185,6 +185,27 @@
                     "reactions": [
                         "send_mail"
                     ]
+                },
+                {
+                    "name": "check_gpa",
+                    "parameters": [
+                        {
+                            "name": "number",
+                            "type": "string"
+                        },
+                        {
+                            "name": "symbol",
+                            "type": "list",
+                            "values": [
+                                "<",
+                                ">",
+                                "="
+                            ]
+                        }
+                    ],
+                    "reactions": [
+                        "send_mail"
+                    ]
                 }
             ]
         },
