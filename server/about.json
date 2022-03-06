@@ -110,7 +110,7 @@
                         },
                         {
                             "name": "threshold",
-                            "type": "int"
+                            "type": "string"
                         }
                     ],
                     "reactions": [
@@ -123,8 +123,17 @@
                     "name": "reply_to_comment",
                     "parameters": [
                         {
-                            "name": "comment_id",
-                            "type": "string"
+                            "name": "new_comment_ids",
+                            "type": "array"
+                        }
+                    ]
+                },
+                {
+                    "name": "like_video",
+                    "parameters": [
+                        {
+                            "name": "new_video_urls",
+                            "type": "array"
                         }
                     ]
                 }
