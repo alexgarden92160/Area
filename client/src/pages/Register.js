@@ -66,7 +66,7 @@ const Register = () => {
           <button type="submit">REGISTER</button>
           <div className='register'>
             Already have an account ?
-            <a href="http://onearea.online:3000/login">LOGIN</a>
+            <a href="http://onearea.online/login">LOGIN</a>
           </div>
         </div>
       </form >

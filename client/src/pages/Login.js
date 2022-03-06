@@ -74,7 +74,7 @@ const Login = () => {
             <button type="submit">Google</button>
             <div className='register'>
               Don't have an account ?
-              <a href="http://onearea.online:3000/register">REGISTER</a>
+              <a href="http://onearea.online/register">REGISTER</a>
             </div>
             <div className='error'>
               {loginFailed ? "No user found. Please try again" : ""}
