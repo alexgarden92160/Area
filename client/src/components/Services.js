@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import Global from "../global";
 
 function Services(props) {
-  const [ac, setAc] = useState((sessionStorage.getItem(props.name) === 'true') === true ? "Disable" : "Enable")
+  const [ac, setAc] = useState(Global.getServiceState(props.name) === true ? "Disable" : "Enable")
   const [vari, setVari] = useState("")
 
+  useEffect(() => {
+    console.log(Global.services)
+    console.log("hello " + Global.getServiceState(props.name))
+  }, [])
+
   const acdesac = async () => {
-    if ((sessionStorage.getItem(props.name) === 'true') === false) {
+    console.log(Global.getServiceState(props.name))
+    if (Global.getServiceState(props.name) === false) {
       setAc("Disable")
-      sessionStorage.setItem(props.name, true);
+      Global.setServiceState(props.name, true)
       await axios.post(
         `http://onearea.online:3000/service/active/set`, {
         service_name: props.name,
@@ -18,7 +25,7 @@ function Services(props) {
       );
     } else {
       setAc("Enable")
-      sessionStorage.setItem(props.name, false);
+      Global.setServiceState(props.name, false)
       await axios.post(
         `http://onearea.online:3000/service/active/set`, {
         service_name: props.name,
@@ -49,7 +56,7 @@ function Services(props) {
       {check_service()}
       <div className='activatesub'>
 
-        <button onClick={async () => { await acdesac(); send_token(); }}>{(sessionStorage.getItem(props.name) === 'true') === true ? "Disable" : "Enable"}</button>
+        <button onClick={async () => { await acdesac(); send_token(); }}>{Global.getServiceState(props.name) === true ? "Disable" : "Enable"}</button>
       </div>
     </div>
   )

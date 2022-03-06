@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Draggable from 'react-draggable';
 import Home from '../pages/Home';
 import Pattern from './Pattern';
 import axios from 'axios';
 import about from '../about.json'
+import Global from "../global";
 
 function Popup(props) {
     let tab = []
@@ -11,17 +12,12 @@ function Popup(props) {
     let n = []
     let value = []
     let reac = []
-    // const [about, setAbout] = useState([])
 
-    // const get_about = (n) => {
-    //     axios.get(
-    //         `http://onearea.online:3000/about.json`
-    //     ).then(res => setAbout(res.data.services))
-    //     console.log(about[0])
-    // };
+    useEffect(() => {
+        Global.loadUserData()
+    }, [])
 
     const get_params = (nm) => {
-        // get_about();
         about.services.map((h) => {
             h.actions.map((z) => {
                 if (nm === z.name) {

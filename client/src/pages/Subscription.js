@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Popup from 'reactjs-popup';
 import Services from '../components/Services'
 import Hservice from '../components/Handlingserv';
+import Global from '../global';
 
 class Subscription extends React.Component {
   static instance;
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+    Global.setUserId(parseInt(sessionStorage.getItem("id")))
+    Global.loadData()
+    Global.loadUserData()
+  }
 
   state = {
     activate: "activate"
@@ -21,6 +25,8 @@ class Subscription extends React.Component {
       this.setState({ activate: "activate" })
     }
   }
+
+
   render() {
     return (
       <body>
@@ -32,8 +38,8 @@ class Subscription extends React.Component {
           <Services name="crypto" />
           <Services name="youtube" />
           <Services name="intra" />
-          <Services />
-          <Services />
+          <Services name="covid" />
+          <Services name="area" />
         </div>
 
       </body>

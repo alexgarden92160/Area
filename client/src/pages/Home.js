@@ -7,6 +7,7 @@ import Weather from '../components/Weather'
 import Mail from '../components/Mail'
 import Pattern from '../components/Pattern';
 import axios from 'axios';
+import Global from '../global';
 
 class Home extends React.Component {
   static instance;

@@ -13,7 +13,6 @@ const Login = () => {
 
   const getConnection = async (e) => {
     e.preventDefault();
-    Global.loadData();
 
     axios.post("http://onearea.online:3000/login", {
       username: username,
@@ -21,10 +20,9 @@ const Login = () => {
     }).then((res) => {
       console.log(res.data[0]);
       if (res.status === 200) {
-        sessionStorage.setItem("IsLoggedIn", true);
-        sessionStorage.setItem("Username", username)
+        sessionStorage.setItem("isLoggedIn", true);
+        sessionStorage.setItem("username", username)
         sessionStorage.setItem("id", res.data[0].id)
-        Global.loadUserData()
 
         navigation("/", { replace: true });
         window.location.reload(false);

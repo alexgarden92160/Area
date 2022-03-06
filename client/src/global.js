@@ -86,12 +86,16 @@ class Global {
     }
 
     static getServiceState(serviceName) {
+        console.log("kk " + serviceName)
         for (var s in this.services) {
+            console.log("jojo " + this.services[s].name)
             if (this.services[s].name === serviceName) {
-                return this.services[s].isActive;
+                console.log("coucou")
+                return false;
             }
         }
-        return false;
+        console.log("-")
+        return false
     }
 
     static setUsername(s) {
