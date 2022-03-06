@@ -15,5 +15,8 @@
     },
     "area": {
         "is_active": true
+    },
+    "covid": {
+        "is_active": false
     }
 }
