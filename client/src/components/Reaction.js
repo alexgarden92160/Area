@@ -6,6 +6,7 @@ import axios from "axios";
 export default function Reaction(props) {
 
     let handle = []
+    let jsonfinal;
 
     function create_front() {
         let tab = []
@@ -42,9 +43,8 @@ export default function Reaction(props) {
     }
 
     function post_param() {
-
-        axios.post(`http://onearea.online:3000/reaction/${props.actionName}`,
-            make_json
+        jsonfinal = make_json()
+        axios.post(`http://onearea.online:3000/reaction/${props.actionName}`, jsonfinal
         ).then(resa => console.log(resa))
     }
 
