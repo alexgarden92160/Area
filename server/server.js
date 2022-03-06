@@ -37,7 +37,7 @@ app.get("/test", (req, res) => {
 })
 
 app.get("/test_api", async (req, res) => {
-    const _status = await intra.check_recent_absence('https://intra.epitech.eu/auth-8a179357767b1abdb040f7e44696ec1ab089c46d');
+    const _status = await intra.check_credit('https://intra.epitech.eu/auth-8a179357767b1abdb040f7e44696ec1ab089c46d', 143, '<');
 
     console.log(_status);
     res.send(_status);

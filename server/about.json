@@ -164,6 +164,27 @@
                     "reactions": [
                         "send_mail"
                     ]
+                },
+                {
+                    "name": "check_credit",
+                    "parameters": [
+                        {
+                            "name": "number",
+                            "type": "string"
+                        },
+                        {
+                            "name": "symbol",
+                            "type": "list",
+                            "values": [
+                                "<",
+                                ">",
+                                "="
+                            ]
+                        }
+                    ],
+                    "reactions": [
+                        "send_mail"
+                    ]
                 }
             ]
         },
