@@ -100,7 +100,8 @@
                     ],
                     "reactions": [
                         "delete_comment",
-                        "reply_to_comment"
+                        "reply_to_comment",
+                        "send_mail"
                     ]
                 },
                 {
@@ -298,7 +299,8 @@
                         "send_mail"
                     ]
                 }
-            ]
+            ],
+            "reactions": []
         },
         {
             "name": "area",
