@@ -28,7 +28,8 @@
                         "send_mail"
                     ]
                 }
-            ]
+            ],
+            "reactions": []
         },
         {
             "name": "crypto",
@@ -58,7 +59,8 @@
                         "send_mail"
                     ]
                 }
-            ]
+            ],
+            "reactions": []
         },
         {
             "name": "youtube",
@@ -190,7 +192,8 @@
                         "send_mail"
                     ]
                 }
-            ]
+            ],
+            "reactions": []
         },
         {
             "name": "area",
