@@ -13,12 +13,12 @@ mailer.init = () => {
     })
 }
 
-mailer.sendEmail = async (email, content) => {
-    const _status = await mailer.transporter.sendMail({
+mailer.sendEmail = async (email, message) => {
+    await mailer.transporter.sendMail({
         from: '"AREA" <zumba.cafewe24@gmail.com>',
         to: email,
         subject: "",
-        text: "email automatique"
+        text: message
     })
 }
 
