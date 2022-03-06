@@ -26,9 +26,9 @@ const Register = () => {
           id: res.data[0].id
         }).then((resa) => {
           if (resa.status === 200) {
-
             sessionStorage.setItem("weather", resa.data.weather.is_active);
-            sessionStorage.setItem("youtube", resa.data.youtube.is_active);
+            sessionStorage.setItem("google", resa.data.google.is_active);
+            sessionStorage.setItem("news", resa.data.news.is_active);
             sessionStorage.setItem("crypto", resa.data.crypto.is_active);
             sessionStorage.setItem("intra", resa.data.intra.is_active);
             sessionStorage.setItem("area", resa.data.area.is_active);
@@ -66,7 +66,7 @@ const Register = () => {
           <button type="submit">REGISTER</button>
           <div className='register'>
             Already have an account ?
-            <a href="http://localhost:3000/login">LOGIN</a>
+            <a href="http://onearea.online:3000/login">LOGIN</a>
           </div>
         </div>
       </form >

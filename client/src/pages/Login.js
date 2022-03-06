@@ -28,7 +28,8 @@ const Login = () => {
           console.log(resa.status)
           if (resa.status === 200) {
             sessionStorage.setItem("weather", resa.data.weather.is_active);
-            sessionStorage.setItem("youtube", resa.data.youtube.is_active);
+            sessionStorage.setItem("google", resa.data.google.is_active);
+            sessionStorage.setItem("news", resa.data.news.is_active);
             sessionStorage.setItem("crypto", resa.data.crypto.is_active);
             sessionStorage.setItem("intra", resa.data.intra.is_active);
             sessionStorage.setItem("area", resa.data.area.is_active);
@@ -73,7 +74,7 @@ const Login = () => {
             <button type="submit">Google</button>
             <div className='register'>
               Don't have an account ?
-              <a href="http://localhost:3000/register">REGISTER</a>
+              <a href="http://onearea.online:3000/register">REGISTER</a>
             </div>
             <div className='error'>
               {loginFailed ? "No user found. Please try again" : ""}

@@ -14,17 +14,25 @@
             ]
         },
         {
-            "name": "reply_to_comment",
+            "name": "new_calendar_event",
             "parameters": [
                 {
-                    "name": "message",
+                    "name": "title",
+                    "type": "string"
+                },
+                {
+                    "name": "location",
+                    "type": "string"
+                },
+                {
+                    "name": "description",
+                    "type": "string"
+                },
+                {
+                    "name": "time",
                     "type": "string"
                 }
             ]
-        },
-        {
-            "name": "like_video",
-            "parameters": []
         }
     ]
 }

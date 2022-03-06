@@ -30,8 +30,9 @@ class Subscription extends React.Component {
         <div className='mastersub'>
           <Services name="weather" />
           <Services name="crypto" />
-          <Services name="youtube" />
+          <Services name="google" />
           <Services name="intra" />
+          <Services name="news" />
           <Services name="covid" />
           <Services name="area" />
         </div>
