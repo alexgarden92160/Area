@@ -7,9 +7,9 @@ intra.check_remaining_duration = async (token, project_name, time) => {
 
     try {
         const response = await axios.get(token + '/?format=json');
-        var element = response.data.board.projets.find(element => element.title === project_name);
+        var element = response.data.board.projets.find(element => element.title === project_name).timeline_barre;
 
-        if (parseInt(element.timeline_barre) > parseInt(time))
+        if (parseInt(element) > parseInt(time))
             status = true;
     } catch (error) {
         console.log(error);
@@ -24,8 +24,6 @@ intra.check_gpa = async (token, number, symbol) => {
     try {
         const response = await axios.get(token + '/user/?format=json');
         var element = response.data.gpa[0].gpa;
-
-        console.log(element);
 
         switch (symbol) {
             case '=':

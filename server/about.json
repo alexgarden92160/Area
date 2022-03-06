@@ -221,6 +221,86 @@
             "reactions": []
         },
         {
+            "name": "covid",
+            "actions": [
+                {
+                    "name": "check_new_case",
+                    "parameters": [
+                        {
+                            "name": "country",
+                            "type": "string"
+                        },
+                        {
+                            "name": "value",
+                            "type": "string"
+                        },
+                        {
+                            "name": "symbol",
+                            "type": "list",
+                            "values": [
+                                "<",
+                                ">",
+                                "="
+                            ]
+                        }
+                    ],
+                    "reactions": [
+                        "send_mail"
+                    ]
+                },
+                {
+                    "name": "check_new_death",
+                    "parameters": [
+                        {
+                            "name": "country",
+                            "type": "string"
+                        },
+                        {
+                            "name": "value",
+                            "type": "string"
+                        },
+                        {
+                            "name": "symbol",
+                            "type": "list",
+                            "values": [
+                                "<",
+                                ">",
+                                "="
+                            ]
+                        }
+                    ],
+                    "reactions": [
+                        "send_mail"
+                    ]
+                },
+                {
+                    "name": "check_new_recovered",
+                    "parameters": [
+                        {
+                            "name": "country",
+                            "type": "string"
+                        },
+                        {
+                            "name": "value",
+                            "type": "string"
+                        },
+                        {
+                            "name": "symbol",
+                            "type": "list",
+                            "values": [
+                                "<",
+                                ">",
+                                "="
+                            ]
+                        }
+                    ],
+                    "reactions": [
+                        "send_mail"
+                    ]
+                }
+            ]
+        },
+        {
             "name": "area",
             "actions": [],
             "reactions": [

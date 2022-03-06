@@ -8,7 +8,7 @@ const mailer = require("./service/mailService.js");;
 const DefaultActions = require('./default_actions.json')
 const DefaultServices = require('./default_services.json');
 const AboutJson = require('./about.json');
-const crypto = require('./actions/crypto.js');
+const covid = require('./actions/covid.js');
 const cron = require('./cron.js');
 
 app.use(bodyParser.json());
@@ -37,12 +37,14 @@ app.get("/test", (req, res) => {
 })
 
 app.get("/test_api", async (req, res) => {
-    const _status = await crypto.check_crypto_value('bitcoin', '36183', '=');
+    const _status = await covid.check_new_case('Afghanistan', '117', '=');
 
     console.log(_status);
     res.send(_status);
 
 })
+
+/*   -------------------------------    BASIC LOGIN/REGISTER    -------------------------------   */
 
 app.post("/login", (req, res) => {
     const username = req.body.username;
@@ -94,6 +96,8 @@ app.post("/register", (req, res) => {
         }
     })
 })
+
+/*   -------------------------------    SERVICE ACTIVE SET/GET    -------------------------------   */
 
 app.post("/service/active/set", (req, res) => {
     const service_name = req.body.service_name;
@@ -147,6 +151,8 @@ app.post("/service/active/getall", (req, res) => {
     })
 })
 
+/*   -------------------------------    SERVICE TOKEN SET    -------------------------------   */
+
 app.post("/service/token/set", (req, res) => {
     const service_name = req.body.service_name;
     const token = req.body.token;
@@ -172,6 +178,8 @@ app.post("/service/token/set", (req, res) => {
     })
 })
 
+/*   -------------------------------    ACTION GET    -------------------------------   */
+
 app.post("/action/getall", (req, res) => {
     const id = req.body.id;
 
@@ -184,6 +192,8 @@ app.post("/action/getall", (req, res) => {
             res.send(JSON.parse(result[0].actions));
     })
 })
+
+/*   -------------------------------    ACTION WEATHER    -------------------------------   */
 
 app.post("/action/check_temperature", (req, res) => {
     const city = req.body.city;
@@ -213,6 +223,36 @@ app.post("/action/check_temperature", (req, res) => {
     })
 })
 
+app.post("/action/check_humidity", (req, res) => {
+    const city = req.body.city;
+    const threshold = req.body.threshold;
+    const symbol = req.body.symbol;
+    const id = req.body.id;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err)
+            res.status(503).send(err.message);
+        else {
+            var tmp = JSON.parse(result[0].actions);
+            var actionId = tmp.actions.length > 0 ? tmp.actions[tmp.actions.length - 1].id + 1 : 0;
+
+            tmp.actions.push({ "id": actionId, "name": "check_humidity", "city": city, "threshold": threshold, "symbol": symbol, "reactions": [] });
+            const setActions = "update user set actions=? where id=?";
+
+            db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
+                if (err)
+                    res.status(503).send(err.message);
+                else
+                    res.status(200).send(actionId.toString());
+            })
+        }
+    })
+})
+
+/*   -------------------------------    ACTION CRYTPO    -------------------------------   */
+
 app.post("/action/check_crypto_value", (req, res) => {
     const crypto = req.body.crypto;
     const value = req.body.value;
@@ -241,6 +281,8 @@ app.post("/action/check_crypto_value", (req, res) => {
     })
 })
 
+/*   -------------------------------    ACTION INTRA    -------------------------------   */
+
 app.post("/action/check_remaining_duration", (req, res) => {
     const project_name = req.body.project_name;
     const time = req.body.time;
@@ -267,6 +309,173 @@ app.post("/action/check_remaining_duration", (req, res) => {
         }
     })
 })
+
+app.post("/action/check_recent_absence", (req, res) => {
+    const id = req.body.id;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err)
+            res.status(503).send(err.message);
+        else {
+            var tmp = JSON.parse(result[0].actions);
+            var actionId = tmp.actions.length > 0 ? tmp.actions[tmp.actions.length - 1].id + 1 : 0;
+
+            tmp.actions.push({ "id": actionId, "name": "check_recent_absence", "reactions": [] });
+            const setActions = "update user set actions=? where id=?";
+
+            db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
+                if (err)
+                    res.status(503).send(err.message);
+                else
+                    res.status(200).send(actionId.toString());
+            })
+        }
+    })
+})
+
+app.post("/action/check_credit", (req, res) => {
+    const number = req.body.number;
+    const symbol = req.body.symbol;
+    const id = req.body.id;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err)
+            res.status(503).send(err.message);
+        else {
+            var tmp = JSON.parse(result[0].actions);
+            var actionId = tmp.actions.length > 0 ? tmp.actions[tmp.actions.length - 1].id + 1 : 0;
+
+            tmp.actions.push({ "id": actionId, "name": "check_credit", "number": number, "symbol": symbol, "reactions": [] });
+            const setActions = "update user set actions=? where id=?";
+
+            db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
+                if (err)
+                    res.status(503).send(err.message);
+                else
+                    res.status(200).send(actionId.toString());
+            })
+        }
+    })
+})
+
+app.post("/action/check_gpa", (req, res) => {
+    const number = req.body.number;
+    const symbol = req.body.symbol;
+    const id = req.body.id;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err)
+            res.status(503).send(err.message);
+        else {
+            var tmp = JSON.parse(result[0].actions);
+            var actionId = tmp.actions.length > 0 ? tmp.actions[tmp.actions.length - 1].id + 1 : 0;
+
+            tmp.actions.push({ "id": actionId, "name": "check_gpa", "number": number, "symbol": symbol, "reactions": [] });
+            const setActions = "update user set actions=? where id=?";
+
+            db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
+                if (err)
+                    res.status(503).send(err.message);
+                else
+                    res.status(200).send(actionId.toString());
+            })
+        }
+    })
+})
+
+/*   -------------------------------    ACTION COVID    -------------------------------   */
+
+app.post("/action/check_new_case", (req, res) => {
+    const country = req.body.country;
+    const value = req.body.value;
+    const symbol = req.body.symbol;
+    const id = req.body.id;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err)
+            res.status(503).send(err.message);
+        else {
+            var tmp = JSON.parse(result[0].actions);
+            var actionId = tmp.actions.length > 0 ? tmp.actions[tmp.actions.length - 1].id + 1 : 0;
+
+            tmp.actions.push({ "id": actionId, "name": "check_new_case", "country": country, "value": value, "symbol": symbol, "reactions": [] });
+            const setActions = "update user set actions=? where id=?";
+
+            db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
+                if (err)
+                    res.status(503).send(err.message);
+                else
+                    res.status(200).send(actionId.toString());
+            })
+        }
+    })
+})
+
+app.post("/action/check_new_death", (req, res) => {
+    const country = req.body.country;
+    const value = req.body.value;
+    const symbol = req.body.symbol;
+    const id = req.body.id;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err)
+            res.status(503).send(err.message);
+        else {
+            var tmp = JSON.parse(result[0].actions);
+            var actionId = tmp.actions.length > 0 ? tmp.actions[tmp.actions.length - 1].id + 1 : 0;
+
+            tmp.actions.push({ "id": actionId, "name": "check_new_death", "country": country, "value": value, "symbol": symbol, "reactions": [] });
+            const setActions = "update user set actions=? where id=?";
+
+            db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
+                if (err)
+                    res.status(503).send(err.message);
+                else
+                    res.status(200).send(actionId.toString());
+            })
+        }
+    })
+})
+
+app.post("/action/check_new_recovered", (req, res) => {
+    const country = req.body.country;
+    const value = req.body.value;
+    const symbol = req.body.symbol;
+    const id = req.body.id;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err)
+            res.status(503).send(err.message);
+        else {
+            var tmp = JSON.parse(result[0].actions);
+            var actionId = tmp.actions.length > 0 ? tmp.actions[tmp.actions.length - 1].id + 1 : 0;
+
+            tmp.actions.push({ "id": actionId, "name": "check_new_recovered", "country": country, "value": value, "symbol": symbol, "reactions": [] });
+            const setActions = "update user set actions=? where id=?";
+
+            db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
+                if (err)
+                    res.status(503).send(err.message);
+                else
+                    res.status(200).send(actionId.toString());
+            })
+        }
+    })
+})
+
+/*   -------------------------------    REACTION EMAIL    -------------------------------   */
 
 app.post("/reaction/send_mail", (req, res) => {
     const email = req.body.email;
@@ -303,6 +512,8 @@ app.post("/reaction/send_mail", (req, res) => {
         }
     })
 })
+
+/*   -------------------------------    ACTION/REACTION REMOVE    -------------------------------   */
 
 app.post("/action/remove", (req, res) => {
     const actionId = req.body.actionId;
@@ -387,6 +598,8 @@ app.post("/test-mail", async (req, res) => {
     }
     return res.status(400).json({ "error": "email not defined" })
 })
+
+/*   -------------------------------    ABOUT JSON    -------------------------------   */
 
 app.get("/about.json", (req, res) => {
     res.status(200).send(AboutJson)
