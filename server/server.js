@@ -8,7 +8,7 @@ const mailer = require("./service/mailService.js");;
 const DefaultActions = require('./default_actions.json')
 const DefaultServices = require('./default_services.json');
 const AboutJson = require('./about.json');
-const covid = require('./actions/covid.js');
+const google = require('./actions/google.js');
 const cron = require('./cron.js');
 
 app.use(bodyParser.json());
@@ -37,11 +37,10 @@ app.get("/test", (req, res) => {
 })
 
 app.get("/test_api", async (req, res) => {
-    const _status = await covid.check_new_case('Afghanistan', '117', '=');
-
-    console.log(_status);
-    res.send(_status);
-
+    console.log(await google.check_new_comment(
+        'ya29.A0ARrdaM92CDPFSYMnKQPBoUPKv6S_JjRQRC-9a4nzygrqtJaKGSwk77MvBslsgh546oACUsfqtgDuWAPkyt-SH0a0YMQCAQCIFVYCDojIrqfV3mmyTKP1ME4efa5Cmv2y1hhdO0POaZ4R5BIAbzqFMuKXb-Z8Sw',
+        'MBmDGjSIO28'
+    ));
 })
 
 /*   -------------------------------    BASIC LOGIN/REGISTER    -------------------------------   */
@@ -475,6 +474,61 @@ app.post("/action/check_new_recovered", (req, res) => {
     })
 })
 
+/*   -------------------------------    ACTION GOOGLE    -------------------------------   */
+
+
+app.post("/action/check_new_comment", (req, res) => {
+    const video = req.body.video;
+    const id = req.body.id;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err)
+            res.status(503).send(err.message);
+        else {
+            var tmp = JSON.parse(result[0].actions);
+            var actionId = tmp.actions.length > 0 ? tmp.actions[tmp.actions.length - 1].id + 1 : 0;
+
+            tmp.actions.push({ "id": actionId, "name": "check_new_comment", "video": video, "reactions": [] });
+            const setActions = "update user set actions=? where id=?";
+
+            db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
+                if (err)
+                    res.status(503).send(err.message);
+                else
+                    res.status(200).send(actionId.toString());
+            })
+        }
+    })
+})
+
+app.post("/action/check_new_video", (req, res) => {
+    const channel = req.body.channel;
+    const id = req.body.id;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err)
+            res.status(503).send(err.message);
+        else {
+            var tmp = JSON.parse(result[0].actions);
+            var actionId = tmp.actions.length > 0 ? tmp.actions[tmp.actions.length - 1].id + 1 : 0;
+
+            tmp.actions.push({ "id": actionId, "name": "check_new_video", "channel": channel, "reactions": [] });
+            const setActions = "update user set actions=? where id=?";
+
+            db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
+                if (err)
+                    res.status(503).send(err.message);
+                else
+                    res.status(200).send(actionId.toString());
+            })
+        }
+    })
+})
+
 /*   -------------------------------    REACTION EMAIL    -------------------------------   */
 
 app.post("/reaction/send_mail", (req, res) => {
@@ -501,6 +555,45 @@ app.post("/reaction/send_mail", (req, res) => {
 
             var reactionId = tmp.actions[count].reactions.length > 0 ? tmp.actions[count].reactions[tmp.actions[count].reactions.length].id + 1 : 0;
             tmp.actions[count].reactions.push({ "id": reactionId, "name": "send_mail", "email": email, "message": message });
+            const setActions = "update user set actions=? where id=?";
+
+            db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
+                if (err)
+                    res.status(503).send(err.message);
+                else
+                    res.status(200).send(reactionId.toString());
+            })
+        }
+    })
+})
+
+/*   -------------------------------    REACTION EMAIL    -------------------------------   */
+
+app.post("/reaction/new_calendar_event", (req, res) => {
+    const title = req.body.title;
+    const location = req.body.location;
+    const description = req.body.description;
+    const time = req.body.time;
+    const id = req.body.id;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err)
+            res.status(503).send(err.message);
+        else {
+            var tmp = JSON.parse(result[0].actions);
+            var count = 0;
+
+            for (let i = 0; i < tmp.actions.length; i++) {
+                if (tmp.actions[i].id === actionId) {
+                    count = i;
+                    break
+                }
+            }
+
+            var reactionId = tmp.actions[count].reactions.length > 0 ? tmp.actions[count].reactions[tmp.actions[count].reactions.length].id + 1 : 0;
+            tmp.actions[count].reactions.push({ "id": reactionId, "name": "new_calendar_event", "title": title, "location": location, "description": description, "time": time });
             const setActions = "update user set actions=? where id=?";
 
             db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {

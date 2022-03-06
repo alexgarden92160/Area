@@ -25,7 +25,8 @@
                         }
                     ],
                     "reactions": [
-                        "send_mail"
+                        "send_mail",
+                        "new_calendar_event"
                     ]
                 },
                 {
@@ -50,7 +51,8 @@
                         }
                     ],
                     "reactions": [
-                        "send_mail"
+                        "send_mail",
+                        "new_calendar_event"
                     ]
                 }
             ],
@@ -88,19 +90,17 @@
             "reactions": []
         },
         {
-            "name": "youtube",
+            "name": "google",
             "actions": [
                 {
                     "name": "check_new_comment",
                     "parameters": [
                         {
-                            "name": "url",
+                            "name": "video",
                             "type": "string"
                         }
                     ],
                     "reactions": [
-                        "delete_comment",
-                        "reply_to_comment",
                         "send_mail"
                     ]
                 },
@@ -108,20 +108,20 @@
                     "name": "check_new_video",
                     "parameters": [
                         {
-                            "name": "url",
+                            "name": "channel",
                             "type": "string"
                         }
                     ],
                     "reactions": [
                         "send_mail",
-                        "like_video"
+                        "new_calendar_event"
                     ]
                 },
                 {
                     "name": "check_likes",
                     "parameters": [
                         {
-                            "name": "url",
+                            "name": "video",
                             "type": "string"
                         },
                         {
@@ -136,17 +136,25 @@
             ],
             "reactions": [
                 {
-                    "name": "reply_to_comment",
+                    "name": "new_calendar_event",
                     "parameters": [
                         {
-                            "name": "message",
+                            "name": "title",
+                            "type": "string"
+                        },
+                        {
+                            "name": "location",
+                            "type": "string"
+                        },
+                        {
+                            "name": "description",
+                            "type": "string"
+                        },
+                        {
+                            "name": "time",
                             "type": "string"
                         }
                     ]
-                },
-                {
-                    "name": "like_video",
-                    "parameters": []
                 }
             ]
         },
@@ -166,7 +174,8 @@
                         }
                     ],
                     "reactions": [
-                        "send_mail"
+                        "send_mail",
+                        "new_calendar_event"
                     ]
                 },
                 {
@@ -246,7 +255,8 @@
                         }
                     ],
                     "reactions": [
-                        "send_mail"
+                        "send_mail",
+                        "new_calendar_event"
                     ]
                 },
                 {
