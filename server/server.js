@@ -8,7 +8,6 @@ const mailer = require("./service/mailService.js");;
 const DefaultActions = require('./default_actions.json')
 const DefaultServices = require('./default_services.json');
 const AboutJson = require('./about.json');
-const google = require('./actions/google.js');
 const cron = require('./cron.js');
 
 app.use(bodyParser.json());
@@ -37,10 +36,7 @@ app.get("/test", (req, res) => {
 })
 
 app.get("/test_api", async (req, res) => {
-    console.log(await google.check_new_comment(
-        'ya29.A0ARrdaM92CDPFSYMnKQPBoUPKv6S_JjRQRC-9a4nzygrqtJaKGSwk77MvBslsgh546oACUsfqtgDuWAPkyt-SH0a0YMQCAQCIFVYCDojIrqfV3mmyTKP1ME4efa5Cmv2y1hhdO0POaZ4R5BIAbzqFMuKXb-Z8Sw',
-        'MBmDGjSIO28'
-    ));
+    console.log(await news.check_last_news('Marseille'));
 })
 
 /*   -------------------------------    BASIC LOGIN/REGISTER    -------------------------------   */
@@ -517,6 +513,34 @@ app.post("/action/check_new_video", (req, res) => {
             var actionId = tmp.actions.length > 0 ? tmp.actions[tmp.actions.length - 1].id + 1 : 0;
 
             tmp.actions.push({ "id": actionId, "name": "check_new_video", "channel": channel, "reactions": [] });
+            const setActions = "update user set actions=? where id=?";
+
+            db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {
+                if (err)
+                    res.status(503).send(err.message);
+                else
+                    res.status(200).send(actionId.toString());
+            })
+        }
+    })
+})
+
+/*   -------------------------------    ACTION NEWS    -------------------------------   */
+
+app.post("/action/check_last_news", (req, res) => {
+    const word = req.body.word;
+    const id = req.body.id;
+
+    const getActions = "select actions from user where id=?";
+
+    db.query(getActions, [id], (err, result) => {
+        if (err)
+            res.status(503).send(err.message);
+        else {
+            var tmp = JSON.parse(result[0].actions);
+            var actionId = tmp.actions.length > 0 ? tmp.actions[tmp.actions.length - 1].id + 1 : 0;
+
+            tmp.actions.push({ "id": actionId, "name": "check_last_news", "word": word, "reactions": [] });
             const setActions = "update user set actions=? where id=?";
 
             db.query(setActions, [JSON.stringify(tmp), id], (err, result) => {

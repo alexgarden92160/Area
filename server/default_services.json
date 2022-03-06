@@ -5,13 +5,16 @@
     "crypto": {
         "is_active": false
     },
-    "youtube": {
+    "google": {
         "is_active": false,
         "token": ""
     },
     "intra": {
         "is_active": false,
         "token": ""
+    },
+    "news": {
+        "is_active": false
     },
     "area": {
         "is_active": true

@@ -90,6 +90,24 @@
             "reactions": []
         },
         {
+            "name": "news",
+            "actions": [
+                {
+                    "name": "check_last_news",
+                    "parameters": [
+                        {
+                            "name": "word",
+                            "type": "string"
+                        }
+                    ],
+                    "reactions": [
+                        "send_mail"
+                    ]
+                }
+            ],
+            "reactions": []
+        },
+        {
             "name": "google",
             "actions": [
                 {
