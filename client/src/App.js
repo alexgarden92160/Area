@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Subscription from './pages/Subscription'
 import { Navigate } from "react-router-dom"
+import Global from "./global";
 
 export default function App() {
   return (

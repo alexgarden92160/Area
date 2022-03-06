@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Weather from '../components/Weather';
+import Global from '../global';
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -12,6 +13,7 @@ const Login = () => {
 
   const getConnection = async (e) => {
     e.preventDefault();
+    Global.loadData();
 
     axios.post("http://onearea.online:3000/login", {
       username: username,
@@ -19,20 +21,11 @@ const Login = () => {
     }).then((res) => {
       console.log(res.data[0]);
       if (res.status === 200) {
-        sessionStorage.setItem("isLoggedIn", true);
-        sessionStorage.setItem("id", res.data[0].id);
+        sessionStorage.setItem("IsLoggedIn", true);
+        sessionStorage.setItem("Username", username)
+        sessionStorage.setItem("id", res.data[0].id)
+        Global.loadUserData()
 
-        axios.post("http://onearea.online:3000/service/active/getall", {
-          id: res.data[0].id
-        }).then((resa) => {
-          console.log(resa.status)
-          if (resa.status === 200) {
-            sessionStorage.setItem("weather", resa.data.weather.is_active);
-            sessionStorage.setItem("youtube", resa.data.youtube.is_active);
-            //sessionStorage.setItem("crypto", resa.data.crypto.is_active);
-            sessionStorage.setItem("intra", resa.data.intra.is_active);
-          }
-        })
         navigation("/", { replace: true });
         window.location.reload(false);
       }
@@ -68,6 +61,7 @@ const Login = () => {
               placeholder='Enter your password'
               onChange={(e) => setPassword(e.target.value)} />
             <button type="submit">LOGIN</button>
+            <button type="submit">Google</button>
             <div className='register'>
               Don't have an account ?
               <a href="http://localhost:3000/register">REGISTER</a>

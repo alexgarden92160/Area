@@ -1,19 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import Draggable from 'react-draggable';
 import Home from '../pages/Home';
 import Pattern from './Pattern';
-import about from "../about.json";
+import axios from 'axios';
+import about from '../about.json'
 
 function Popup(props) {
     let tab = []
     let params = []
     let n = []
-    let value = [[]]
+    let value = []
+    let reac = []
+    // const [about, setAbout] = useState([])
+
+    // const get_about = (n) => {
+    //     axios.get(
+    //         `http://onearea.online:3000/about.json`
+    //     ).then(res => setAbout(res.data.services))
+    //     console.log(about[0])
+    // };
 
     const get_params = (nm) => {
+        // get_about();
         about.services.map((h) => {
             h.actions.map((z) => {
                 if (nm === z.name) {
+                    z.reactions.map((j) => {
+                        reac.push(j)
+                    })
                     z.parameters.map((i) => {
                         params.push(i.type)
                         n.push(i.name)
@@ -21,13 +35,12 @@ function Popup(props) {
                             value.push(i.values)
                         else
                             value.push([])
-                        console.log(i.name + " " + i.value)
                     }
                     )
                 }
             });
         });
-        Home.instance.addActions(<Pattern type={params} name={n} val={value} />)
+        Home.instance.addActions(<Pattern type={params} name={n} val={value} reac={reac} />)
     }
 
     function fill_tab() {
@@ -55,6 +68,7 @@ function Popup(props) {
                     transform: props.visible ? ' translateY(0vh' : 'translateY(-100vh)',
                     opacity: props.visible ? '1' : '0'
                 }}>
+                {/* {get_about()} */}
                 <ul>{res}</ul>
             </div>
         </Draggable>

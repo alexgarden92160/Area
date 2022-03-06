@@ -64,6 +64,7 @@ class Global {
     static reactions = [];
     static userActions = [];
     static username = "";
+    static isLoggedIn = false;
     static id = -1;
 
     static setServiceState(serviceName, activeState) {
@@ -95,6 +96,10 @@ class Global {
 
     static setUsername(s) {
         this.username = s;
+    }
+
+    static setIsLoggedIn() {
+        this.isLoggedIn = true;
     }
 
     static setUserId(i) {

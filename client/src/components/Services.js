@@ -3,6 +3,7 @@ import axios from 'axios';
 
 function Services(props) {
   const [ac, setAc] = useState((sessionStorage.getItem(props.name) === 'true') === true ? "Disable" : "Enable")
+  const [vari, setVari] = useState("")
 
   const acdesac = async () => {
     if ((sessionStorage.getItem(props.name) === 'true') === false) {
@@ -28,11 +29,27 @@ function Services(props) {
     }
   }
 
+  function check_service() {
+    if (props.name === "intra") {
+      return <input value={vari} onChange={(e) => setVari(e.target.value)} />
+    }
+    return
+  }
+
+  function send_token() {
+    axios.post(`http://onearea.online:3000/service/token/set`, {
+      service_name: props.name,
+      token: vari,
+      id: sessionStorage.getItem("id")
+    }).then((res) => res)
+  }
   return (
     <div className='sub'>
       <p>{props.name}</p>
+      {check_service()}
       <div className='activatesub'>
-        <button onClick={async () => { await acdesac() }}>{(sessionStorage.getItem(props.name) === 'true') === true ? "Disable" : "Enable"}</button>
+
+        <button onClick={async () => { await acdesac(); send_token(); }}>{(sessionStorage.getItem(props.name) === 'true') === true ? "Disable" : "Enable"}</button>
       </div>
     </div>
   )
