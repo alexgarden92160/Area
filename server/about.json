@@ -71,12 +71,6 @@
                             "type": "string"
                         }
                     ],
-                    "return": [
-                        {
-                            "name": "new_comment_ids",
-                            "type": "array"
-                        }
-                    ],
                     "reactions": [
                         "delete_comment",
                         "reply_to_comment"
@@ -88,12 +82,6 @@
                         {
                             "name": "url",
                             "type": "string"
-                        }
-                    ],
-                    "return": [
-                        {
-                            "name": "new_video_urls",
-                            "type": "array"
                         }
                     ],
                     "reactions": [
@@ -123,19 +111,14 @@
                     "name": "reply_to_comment",
                     "parameters": [
                         {
-                            "name": "new_comment_ids",
-                            "type": "array"
+                            "name": "message",
+                            "type": "string"
                         }
                     ]
                 },
                 {
                     "name": "like_video",
-                    "parameters": [
-                        {
-                            "name": "new_video_urls",
-                            "type": "array"
-                        }
-                    ]
+                    "parameters": []
                 }
             ]
         },
