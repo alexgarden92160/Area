@@ -25,7 +25,7 @@
                         }
                     ],
                     "reactions": [
-                        "email"
+                        "send_mail"
                     ]
                 }
             ]
@@ -55,7 +55,7 @@
                         }
                     ],
                     "reactions": [
-                        "email"
+                        "send_mail"
                     ]
                 }
             ]
@@ -97,7 +97,7 @@
                         }
                     ],
                     "reactions": [
-                        "email",
+                        "send_mail",
                         "like_video"
                     ]
                 },
@@ -114,7 +114,7 @@
                         }
                     ],
                     "reactions": [
-                        "email"
+                        "send_mail"
                     ]
                 }
             ],
@@ -146,10 +146,34 @@
                         }
                     ],
                     "reactions": [
-                        "email"
+                        "send_mail"
+                    ]
+                },
+                {
+                    "name": "check_recent_absence",
+                    "parameters": [],
+                    "reactions": [
+                        "send_mail"
                     ]
                 }
             ]
+        },
+        {
+            "name": "area",
+            "actions": [],
+            "reactions": {
+                "name": "send_mail",
+                "parameters": [
+                    {
+                        "name": "message",
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "type": "string"
+                    }
+                ]
+            }
         }
     ]
 }

@@ -18,4 +18,20 @@ intra.check_remaining_duration = async (token, project_name, time) => {
     return status;
 }
 
+intra.check_recent_absence = async (token) => {
+    var status = false;
+
+    try {
+        const response = await axios.get(token + '/user/notification/missed?format=json');
+        var element = response.data.recents;
+
+        if (element.length != 0)
+            status = true;
+    } catch (error) {
+        console.log(error);
+    }
+
+    return status;
+}
+
 module.exports = intra;

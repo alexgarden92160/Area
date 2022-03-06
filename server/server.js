@@ -37,7 +37,7 @@ app.get("/test", (req, res) => {
 })
 
 app.get("/test_api", async (req, res) => {
-    const _status = await intra.check_remaining_duration('https://intra.epitech.eu/auth-8a179357767b1abdb040f7e44696ec1ab089c46d', 33);
+    const _status = await intra.check_recent_absence('https://intra.epitech.eu/auth-8a179357767b1abdb040f7e44696ec1ab089c46d');
 
     console.log(_status);
     res.send(_status);
