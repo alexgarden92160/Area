@@ -42,13 +42,13 @@ function cronFunc() {
                                 var _status = await crypto.check_crypto_value(action.crypto, action.value, action.symbol);
                                 break;
                             case "check_new_case":
-                                var _status = await covid.check_new_case(action.country, action.value, action, symbol);
+                                var _status = await covid.check_new_case(action.country, action.value, action.symbol);
                                 break;
                             case "check_new_death":
-                                var _status = await covid.check_new_death(action.country, action.value, action, symbol);
+                                var _status = await covid.check_new_death(action.country, action.value, action.symbol);
                                 break;
                             case "check_new_recovered":
-                                var _status = await covid.check_new_recovered(action.country, action.value, action, symbol);
+                                var _status = await covid.check_new_recovered(action.country, action.value, action.symbol);
                                 break;
                             case "check_new_comment":
                                 break;
