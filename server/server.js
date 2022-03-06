@@ -8,7 +8,7 @@ const mailer = require("./service/mailService.js");;
 const DefaultActions = require('./default_actions.json')
 const DefaultServices = require('./default_services.json');
 const AboutJson = require('./about.json');
-const weather = require('./actions/weather.js');
+const crypto = require('./actions/crypto.js');
 const cron = require('./cron.js');
 
 app.use(bodyParser.json());
@@ -37,7 +37,7 @@ app.get("/test", (req, res) => {
 })
 
 app.get("/test_api", async (req, res) => {
-    const _status = await weather.check_humidity('Paris', '83', '=');
+    const _status = await crypto.check_crypto_value('bitcoin', '36183', '=');
 
     console.log(_status);
     res.send(_status);
