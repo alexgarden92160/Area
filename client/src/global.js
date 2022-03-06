@@ -87,13 +87,12 @@ class Global {
 
     static getServiceState(serviceName) {
         console.log("kk " + serviceName)
-        for (var s in this.services) {
-            console.log("jojo " + this.services[s].name)
-            if (this.services[s].name === serviceName) {
-                console.log("coucou")
-                return false;
+        this.services.map((s) => {
+            if (s.name === serviceName) {
+                console.log("coucou " + s.isActive)
+                return (s.isActive === "true")
             }
-        }
+        });
         console.log("-")
         return false
     }

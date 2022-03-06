@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Draggable from 'react-draggable';
 import Home from '../pages/Home';
 import Pattern from './Pattern';
 import axios from 'axios';
 import about from '../about.json'
-import Global from "../global";
 
 function Popup(props) {
     let tab = []
@@ -12,10 +11,6 @@ function Popup(props) {
     let n = []
     let value = []
     let reac = []
-
-    useEffect(() => {
-        Global.loadUserData()
-    }, [])
 
     const get_params = (nm) => {
         about.services.map((h) => {
@@ -36,7 +31,7 @@ function Popup(props) {
                 }
             });
         });
-        Home.instance.addActions(<Pattern type={params} name={n} val={value} reac={reac} />)
+        Home.instance.addActions(<Pattern actionName={nm} type={params} name={n} val={value} reac={reac} />)
     }
 
     function fill_tab() {

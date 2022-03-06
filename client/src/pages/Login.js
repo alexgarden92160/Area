@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Weather from '../components/Weather';
-import Global from '../global';
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -21,9 +20,21 @@ const Login = () => {
       console.log(res.data[0]);
       if (res.status === 200) {
         sessionStorage.setItem("isLoggedIn", true);
-        sessionStorage.setItem("username", username)
-        sessionStorage.setItem("id", res.data[0].id)
+        sessionStorage.setItem("id", res.data[0].id);
 
+        axios.post("http://onearea.online:3000/service/active/getall", {
+          id: res.data[0].id
+        }).then((resa) => {
+          console.log(resa.status)
+          if (resa.status === 200) {
+            sessionStorage.setItem("weather", resa.data.weather.is_active);
+            sessionStorage.setItem("youtube", resa.data.youtube.is_active);
+            sessionStorage.setItem("crypto", resa.data.crypto.is_active);
+            sessionStorage.setItem("intra", resa.data.intra.is_active);
+            sessionStorage.setItem("area", resa.data.area.is_active);
+            sessionStorage.setItem("covid", resa.data.covid.is_active);
+          }
+        })
         navigation("/", { replace: true });
         window.location.reload(false);
       }

@@ -1,0 +1,325 @@
+{
+    "services": [
+        {
+            "name": "weather",
+            "actions": [
+                {
+                    "name": "check_temperature",
+                    "parameters": [
+                        {
+                            "name": "city",
+                            "type": "string"
+                        },
+                        {
+                            "name": "threshold",
+                            "type": "string"
+                        },
+                        {
+                            "name": "symbol",
+                            "type": "list",
+                            "values": [
+                                "<",
+                                ">",
+                                "="
+                            ]
+                        }
+                    ],
+                    "reactions": [
+                        "send_mail"
+                    ]
+                },
+                {
+                    "name": "check_humidity",
+                    "parameters": [
+                        {
+                            "name": "city",
+                            "type": "string"
+                        },
+                        {
+                            "name": "threshold",
+                            "type": "string"
+                        },
+                        {
+                            "name": "symbol",
+                            "type": "list",
+                            "values": [
+                                "<",
+                                ">",
+                                "="
+                            ]
+                        }
+                    ],
+                    "reactions": [
+                        "send_mail"
+                    ]
+                }
+            ],
+            "reactions": []
+        },
+        {
+            "name": "crypto",
+            "actions": [
+                {
+                    "name": "check_crypto_value",
+                    "parameters": [
+                        {
+                            "name": "crypto",
+                            "type": "string"
+                        },
+                        {
+                            "name": "value",
+                            "type": "string"
+                        },
+                        {
+                            "name": "symbol",
+                            "type": "list",
+                            "values": [
+                                "<",
+                                ">",
+                                "="
+                            ]
+                        }
+                    ],
+                    "reactions": [
+                        "send_mail"
+                    ]
+                }
+            ],
+            "reactions": []
+        },
+        {
+            "name": "youtube",
+            "actions": [
+                {
+                    "name": "check_new_comment",
+                    "parameters": [
+                        {
+                            "name": "url",
+                            "type": "string"
+                        }
+                    ],
+                    "reactions": [
+                        "delete_comment",
+                        "reply_to_comment",
+                        "send_mail"
+                    ]
+                },
+                {
+                    "name": "check_new_video",
+                    "parameters": [
+                        {
+                            "name": "url",
+                            "type": "string"
+                        }
+                    ],
+                    "reactions": [
+                        "send_mail",
+                        "like_video"
+                    ]
+                },
+                {
+                    "name": "check_likes",
+                    "parameters": [
+                        {
+                            "name": "url",
+                            "type": "string"
+                        },
+                        {
+                            "name": "threshold",
+                            "type": "string"
+                        }
+                    ],
+                    "reactions": [
+                        "send_mail"
+                    ]
+                }
+            ],
+            "reactions": [
+                {
+                    "name": "reply_to_comment",
+                    "parameters": [
+                        {
+                            "name": "message",
+                            "type": "string"
+                        }
+                    ]
+                },
+                {
+                    "name": "like_video",
+                    "parameters": []
+                }
+            ]
+        },
+        {
+            "name": "intra",
+            "actions": [
+                {
+                    "name": "check_remaining_duration",
+                    "parameters": [
+                        {
+                            "name": "project_name",
+                            "type": "string"
+                        },
+                        {
+                            "name": "time",
+                            "type": "string"
+                        }
+                    ],
+                    "reactions": [
+                        "send_mail"
+                    ]
+                },
+                {
+                    "name": "check_recent_absence",
+                    "parameters": [],
+                    "reactions": [
+                        "send_mail"
+                    ]
+                },
+                {
+                    "name": "check_credit",
+                    "parameters": [
+                        {
+                            "name": "number",
+                            "type": "string"
+                        },
+                        {
+                            "name": "symbol",
+                            "type": "list",
+                            "values": [
+                                "<",
+                                ">",
+                                "="
+                            ]
+                        }
+                    ],
+                    "reactions": [
+                        "send_mail"
+                    ]
+                },
+                {
+                    "name": "check_gpa",
+                    "parameters": [
+                        {
+                            "name": "number",
+                            "type": "string"
+                        },
+                        {
+                            "name": "symbol",
+                            "type": "list",
+                            "values": [
+                                "<",
+                                ">",
+                                "="
+                            ]
+                        }
+                    ],
+                    "reactions": [
+                        "send_mail"
+                    ]
+                }
+            ],
+            "reactions": []
+        },
+        {
+            "name": "covid",
+            "actions": [
+                {
+                    "name": "check_new_case",
+                    "parameters": [
+                        {
+                            "name": "country",
+                            "type": "string"
+                        },
+                        {
+                            "name": "value",
+                            "type": "string"
+                        },
+                        {
+                            "name": "symbol",
+                            "type": "list",
+                            "values": [
+                                "<",
+                                ">",
+                                "="
+                            ]
+                        }
+                    ],
+                    "reactions": [
+                        "send_mail"
+                    ]
+                },
+                {
+                    "name": "check_new_death",
+                    "parameters": [
+                        {
+                            "name": "country",
+                            "type": "string"
+                        },
+                        {
+                            "name": "value",
+                            "type": "string"
+                        },
+                        {
+                            "name": "symbol",
+                            "type": "list",
+                            "values": [
+                                "<",
+                                ">",
+                                "="
+                            ]
+                        }
+                    ],
+                    "reactions": [
+                        "send_mail"
+                    ]
+                },
+                {
+                    "name": "check_new_recovered",
+                    "parameters": [
+                        {
+                            "name": "country",
+                            "type": "string"
+                        },
+                        {
+                            "name": "value",
+                            "type": "string"
+                        },
+                        {
+                            "name": "symbol",
+                            "type": "list",
+                            "values": [
+                                "<",
+                                ">",
+                                "="
+                            ]
+                        }
+                    ],
+                    "reactions": [
+                        "send_mail"
+                    ]
+                }
+            ],
+            "reactions": []
+        },
+        {
+            "name": "area",
+            "actions": [],
+            "reactions": [
+                {
+                    "name": "send_mail",
+                    "parameters": [
+                        {
+                            "name": "message",
+                            "type": "string"
+                        },
+                        {
+                            "name": "email",
+                            "type": "string"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

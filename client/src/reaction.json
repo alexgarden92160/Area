@@ -1,0 +1,30 @@
+{
+    "reactions": [
+        {
+            "name": "send_mail",
+            "parameters": [
+                {
+                    "name": "message",
+                    "type": "string"
+                },
+                {
+                    "name": "email",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "reply_to_comment",
+            "parameters": [
+                {
+                    "name": "message",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "like_video",
+            "parameters": []
+        }
+    ]
+}
