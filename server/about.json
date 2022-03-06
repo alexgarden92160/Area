@@ -134,22 +134,6 @@
                         "send_mail",
                         "new_calendar_event"
                     ]
-                },
-                {
-                    "name": "check_likes",
-                    "parameters": [
-                        {
-                            "name": "video",
-                            "type": "string"
-                        },
-                        {
-                            "name": "threshold",
-                            "type": "string"
-                        }
-                    ],
-                    "reactions": [
-                        "send_mail"
-                    ]
                 }
             ],
             "reactions": [

@@ -5,6 +5,8 @@ const weather = require('./actions/weather.js');
 const crypto = require('./actions/crypto.js');
 const covid = require('./actions/covid.js')
 const mailer = require('./service/mailService.js');
+const news = require('./actions/news.js')
+const google = require('./actions/google.js')
 
 function cronFunc() {
     cron.schedule('* * * * *', () => {
@@ -50,11 +52,14 @@ function cronFunc() {
                             case "check_new_recovered":
                                 var _status = await covid.check_new_recovered(action.country, action.value, action.symbol);
                                 break;
+                            case "check_last_news":
+                                var _status = await news.check_last_news(action.word);
+                                break;
                             case "check_new_comment":
+                                var _status = await google.check_new_comment(JSON.parse(user.services).google.token, action.video);
                                 break;
                             case "check_new_video":
-                                break;
-                            case "check_likes":
+                                var _status = await google.check_new_video(action.channel);
                                 break;
                         }
                         console.log("\t" + action.name + " : " + _status);
@@ -66,9 +71,9 @@ function cronFunc() {
                                         await mailer.sendEmail(reaction.email, "Message from " + action.name
                                             + ": " + reaction.message);
                                         break;
-                                    case "reply_to_comment":
-                                        break;
-                                    case "delete_comment":
+                                    case "new_calendar_event":
+                                        await google.new_calendar_event(JSON.parse(user.services).google.token, action.title,
+                                            action.location, action.description, action.time)
                                         break;
 
                                 }
