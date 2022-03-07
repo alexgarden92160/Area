@@ -27,7 +27,11 @@ mailer.init();
 const sslServer = https.createServer(
     {
         key: fs.readFileSync(path.join(__dirname, 'cert', 'HSSL-61f1dbc334b67.key')),
-        ca: fs.readFileSync(path.join(__dirname, 'cert', 'AAACertificateServices.crt')),
+        ca: [
+            fs.readFileSync(path.join(__dirname, 'cert', 'AAACertificateServices.crt')),
+            fs.readFileSync(path.join(__dirname, 'cert', 'USERTrustRSAAAACA.crt')),
+            fs.readFileSync(path.join(__dirname, 'cert', 'SectigoRSADomainValidationSecureServerCA.crt'))
+        ],
         cert: fs.readFileSync(path.join(__dirname, 'cert', 'onearea_online.crt'))
     },
     app
