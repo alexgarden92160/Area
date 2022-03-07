@@ -20,20 +20,20 @@ app.use(cors())
 cron();
 mailer.init();
 
-// app.listen(port, () => {
-//     console.log(`Server listening at http://localhost:${port}`);
-// })
+app.listen(port, () => {
+    console.log(`Server listening at http://localhost:${port}`);
+})
 
-const sslServer = https.createServer(
-    {
-        key: fs.readFileSync(path.join(__dirname, 'cert', 'HSSL-61f1dbc334b67.key')),
-        ca: fs.readFileSync(path.join(__dirname, 'cert', 'AAACertificateServices.crt')),
-        cert: fs.readFileSync(path.join(__dirname, 'cert', 'onearea_online.crt'))
-    },
-    app
-);
+// const sslServer = https.createServer(
+//     {
+//         key: fs.readFileSync(path.join(__dirname, 'cert', 'HSSL-61f1dbc334b67.key')),
+//         ca: fs.readFileSync(path.join(__dirname, 'cert', 'AAACertificateServices.crt')),
+//         cert: fs.readFileSync(path.join(__dirname, 'cert', 'onearea_online.crt'))
+//     },
+//     app
+// );
 
-sslServer.listen(port, () => console.log('Secure server on port 3443'));
+// sslServer.listen(port, () => console.log('Secure server on port 3443'));
 
 app.get("/", (req, res) => {
     res.send("Server Instance V2");
