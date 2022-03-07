@@ -6,7 +6,7 @@ function getUrl(id) {
 
     const optionsUrl = {
         client_id: '171093942489-7pe0ilftvscuv5runqumdoab1la5c4la.apps.googleusercontent.com',
-        redirect_uri: 'http://localhost:3000/oauth',
+        redirect_uri: 'https://onearea:3000/oauth',
         response_type: 'code',
         scope: [
             'https://www.googleapis.com/auth/calendar',
@@ -28,7 +28,7 @@ async function getAccesToken(id, code) {
         code: code,
         client_id: '171093942489-7pe0ilftvscuv5runqumdoab1la5c4la.apps.googleusercontent.com',
         client_secret: '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',
-        redirect_uri: 'http://localhost:3000/oauth',
+        redirect_uri: 'https://onearea:3000/oauth',
         grant_type: 'authorization_code'
     });
 

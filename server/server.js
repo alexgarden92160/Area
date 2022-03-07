@@ -20,9 +20,13 @@ app.use(cors())
 cron();
 mailer.init();
 
+/*   -------------------------------    HTTP    -------------------------------   */
+
 // app.listen(port, () => {
 //     console.log(`Server listening at http://localhost:${port}`);
 // })
+
+/*   -------------------------------    HTTPS    -------------------------------   */
 
 const sslServer = https.createServer(
     {
