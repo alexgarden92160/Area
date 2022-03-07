@@ -9,6 +9,7 @@ const DefaultActions = require('./default_actions.json')
 const DefaultServices = require('./default_services.json');
 const AboutJson = require('./about.json');
 const cron = require('./cron.js');
+const oauth = require('./oauth/google');
 
 app.use(bodyParser.json());
 app.use(cors())
@@ -35,8 +36,20 @@ app.get("/test", (req, res) => {
     })
 })
 
-app.get("/test_api", async (req, res) => {
-    console.log(await news.check_last_news('Marseille'));
+app.get("/test_api", (req, res) => {
+    res.send(oauth.getUrl(3));
+})
+
+app.get('/oauth', async (req, res) => {
+    const id = req.query.state;
+    const code = req.query.code;
+
+    console.log({
+        'id': id,
+        'token auth': code
+    });
+    
+    await oauth.getAccesToken(id, code);
 })
 
 /*   -------------------------------    BASIC LOGIN/REGISTER    -------------------------------   */
