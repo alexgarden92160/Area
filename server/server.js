@@ -577,7 +577,7 @@ app.post("/reaction/send_mail", (req, res) => {
                 }
             }
 
-            var reactionId = tmp.actions[count].reactions.length > 0 ? tmp.actions[count].reactions[tmp.actions[count].reactions.length].id + 1 : 0;
+            var reactionId = tmp.actions[count].reactions.length > 0 ? tmp.actions[count].reactions[tmp.actions[count].reactions.length - 1].id + 1 : 0;
             tmp.actions[count].reactions.push({ "id": reactionId, "name": "send_mail", "email": email, "message": message });
             const setActions = "update user set actions=? where id=?";
 
@@ -616,7 +616,7 @@ app.post("/reaction/new_calendar_event", (req, res) => {
                 }
             }
 
-            var reactionId = tmp.actions[count].reactions.length > 0 ? tmp.actions[count].reactions[tmp.actions[count].reactions.length].id + 1 : 0;
+            var reactionId = tmp.actions[count].reactions.length > 0 ? tmp.actions[count].reactions[tmp.actions[count].reactions.length - 1].id + 1 : 0;
             tmp.actions[count].reactions.push({ "id": reactionId, "name": "new_calendar_event", "title": title, "location": location, "description": description, "time": time });
             const setActions = "update user set actions=? where id=?";
 
