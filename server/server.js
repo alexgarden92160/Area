@@ -7,8 +7,12 @@ const db = require('./database/mysql.js');
 const mailer = require("./service/mailService.js");;
 const DefaultActions = require('./default_actions.json')
 const DefaultServices = require('./default_services.json');
+const https = require('https');
+const path = require('path');
+const fs = require('fs');
 const AboutJson = require('./about.json');
 const cron = require('./cron.js');
+const oauth = require('./oauth/google');
 
 app.use(bodyParser.json());
 app.use(cors())
@@ -16,9 +20,30 @@ app.use(cors())
 cron();
 mailer.init();
 
+/*   -------------------------------    HTTP    -------------------------------   */
+
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
 })
+
+/*   -------------------------------    HTTPS    -------------------------------   */
+
+// const sslServer = https.createServer(
+//     {
+//         key: fs.readFileSync(path.join(__dirname, 'cert', 'HSSL-61f1dbc334b67.key')),
+//         ca: [
+//             fs.readFileSync(path.join(__dirname, 'cert', 'AAACertificateServices.crt')),
+//             fs.readFileSync(path.join(__dirname, 'cert', 'USERTrustRSAAAACA.crt')),
+//             fs.readFileSync(path.join(__dirname, 'cert', 'SectigoRSADomainValidationSecureServerCA.crt'))
+//         ],
+//         cert: fs.readFileSync(path.join(__dirname, 'cert', 'onearea_online.crt'))
+//     },
+//     app
+// );
+
+// sslServer.listen(port, () => {
+//     console.log('Secure server on port 3000')
+// });
 
 app.get("/", (req, res) => {
     res.send("Server Instance V2");
@@ -35,8 +60,20 @@ app.get("/test", (req, res) => {
     })
 })
 
-app.get("/test_api", async (req, res) => {
-    console.log(await news.check_last_news('Marseille'));
+app.get("/test_api", (req, res) => {
+    res.send(oauth.getUrl(3));
+})
+
+app.get('/oauth', async (req, res) => {
+    const id = req.query.state;
+    const code = req.query.code;
+
+    console.log({
+        'id': id,
+        'token auth': code
+    });
+    
+    await oauth.getAccesToken(id, code);
 })
 
 /*   -------------------------------    BASIC LOGIN/REGISTER    -------------------------------   */

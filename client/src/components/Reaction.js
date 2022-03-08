@@ -5,8 +5,21 @@ import axios from "axios";
 
 export default function Reaction(props) {
 
-    let handle = []
+    let handl = []
     let jsonfinal;
+
+    function compare_type(type, j, handl) {
+        let save = []
+        if (type === "string")
+            return <input onChange={(e) => handl[j] = e.target.value} />
+        else if (type === "list") {
+            save.push(<option> </option>)
+            props.val[j].map((a) => {
+                save.push(<option Values={a}>{a}</option>)
+            });
+            return <select onChange={(e) => handl[j] = e.target.value}>{save}</select>
+        }
+    }
 
     function create_front() {
         let tab = []
@@ -15,8 +28,8 @@ export default function Reaction(props) {
         let j = 0;
 
         props.type.map((z) => {
-            tab.push(<input onChange={(e) => handle[j] = e.target.value} />);
-            handle.push("")
+            tab.push(compare_type(z, j, handl));
+            handl.push("")
             j++;
         });
         props.name.map((a) => {
@@ -34,7 +47,7 @@ export default function Reaction(props) {
         let json = new Object();
 
         for (var i in props.name)
-            json[props.name[i]] = handle[i]
+            json[props.name[i]] = handl[i]
         json.id = sessionStorage.getItem("id")
         json.actionId = props.actionId
         console.log(json)
