@@ -82,10 +82,10 @@ class Home extends React.Component {
     // })
     // })
     //this.addActions(<Patterndef actionName={nm} type={params} name={n} val={value} reac={reac} />)
-    this.addActions(<Patterndef name={n} id={i} />)
+    this.addActions(<Patterndef actionName={nm} name={n} id={i} />)
   }
-  loadAvailableAc() {
-    axios.post("http://onearea.online:3000/action/getall", {
+  async loadAvailableAc() {
+    await axios.post("http://onearea.online:3000/action/getall", {
       id: sessionStorage.getItem("id")
     }).then(res => {
       let data = []
@@ -140,7 +140,7 @@ class Home extends React.Component {
       id: id,
       actionId: action_id
     }).then(res => console.log(res))
-    this.loadAvailableAc();
+
   }
 
 

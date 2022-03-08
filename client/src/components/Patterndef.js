@@ -11,7 +11,7 @@ export default function Patterndef(props) {
     let name = props.name;
     let id = props.id;
     let value = []
-    let nAction = ""
+    let nAction = props.actionName
     let savevalue = ""
     let reactionname = ""
 
@@ -19,7 +19,6 @@ export default function Patterndef(props) {
         await axios.post("http://onearea.online:3000/action/getall", {
             id: sessionStorage.getItem("id")
         }).then((res) => {
-            sessionStorage.setItem("NAME", res.data.actions[id].name)
             // for (var i = 0; i < name.length; i++) {
             //     savevalue += res.data.actions[id][name[i]]
             //     if (i < name.length - 1)
@@ -28,10 +27,8 @@ export default function Patterndef(props) {
             // sessionStorage.setItem("VALUE", savevalue)
             sessionStorage.setItem("REACTION", res.data.actions[id].reactions[0].name)
         })
-        nAction = sessionStorage.getItem("NAME");
-        // value = sessionStorage.getItem("VALUE").split(',')
+        //value = sessionStorage.getItem("VALUE").split(',')
         reactionname = sessionStorage.getItem("REACTION")
-        sessionStorage.removeItem("NAME")
         sessionStorage.removeItem("VALUE")
         sessionStorage.removeItem("REACTION")
     }
