@@ -38,7 +38,7 @@ googleApi.check_new_video = async (channel) => {
     return status;
 }
 
-googleApi.new_calendar_event = (token, title, location, description, time) => {
+googleApi.new_calendar_event = async (token, title, location, description, time) => {
     const oauth2Client = new google.auth.OAuth2(
         googleApi.CLIENT_ID,
         googleApi.CLIENT_SECRET
@@ -51,10 +51,10 @@ googleApi.new_calendar_event = (token, title, location, description, time) => {
     google.options({auth: oauth2Client});
 
     const eventStartTime = new Date();
-    eventStartTime.setDate(eventStartTime.getDay() + 2);
+    eventStartTime.setDate(eventStartTime.getDate() + 2);
 
     const eventEndTime = new Date();
-    eventEndTime.setDate(eventEndTime.getDay() + parseInt(time));
+    eventEndTime.setDate(eventStartTime.getDate() + parseInt(time));
     eventEndTime.setMinutes(eventEndTime.getMinutes() + 45);
 
     const event = {
@@ -72,7 +72,7 @@ googleApi.new_calendar_event = (token, title, location, description, time) => {
         colorId: 1
     }
 
-    calendar.freebusy.query({
+    await calendar.freebusy.query({
         resource: {
             timeMin: eventStartTime,
             timeMax: eventEndTime,
