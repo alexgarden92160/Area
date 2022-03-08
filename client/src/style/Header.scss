@@ -44,5 +44,28 @@ header {
             width : auto;
             height: auto;            
         }
+
+        .profile{        
+            text-align: center;
+            background-color: black;
+            border-style: none;
+            border-radius: 10px;
+            color: $yellow;
+            width : auto;
+            height: auto;
+            padding: 5%;
+            font-size: $font_size_default;
+            margin-left: 1200%;       
+            margin-top: 30%;
+            }
+            .profile:hover{
+                font-weight: bold;
+                background-color: $yellow;
+                color:black;
+               // font-size: calc($font_size_default + 3px);
+                width : auto;
+                height: auto;            
+            }
+        
     }
 }

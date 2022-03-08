@@ -21,6 +21,7 @@ const Register = () => {
         console.log("login success")
         sessionStorage.setItem("isLoggedIn", true);
         sessionStorage.setItem("id", res.data[0].id);
+        sessionStorage.setItem("username", username);
 
         axios.post("http://onearea.online:3000/active/getall", {
           id: res.data[0].id
@@ -35,7 +36,6 @@ const Register = () => {
             sessionStorage.setItem("covid", resa.data.covid.is_active);
           }
         })
-
         navigation("/", { replace: true });
         window.location.reload(false);
       }
