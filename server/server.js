@@ -13,6 +13,7 @@ const fs = require('fs');
 const AboutJson = require('./about.json');
 const cron = require('./cron.js');
 const oauth = require('./oauth/google');
+const google = require('./actions/google');
 
 app.use(bodyParser.json());
 app.use(cors())
@@ -60,9 +61,11 @@ app.get("/test", (req, res) => {
     })
 })
 
-app.get("/test_api", (req, res) => {
-    res.send(oauth.getUrl(3));
+app.get("/test_api", async (req, res) => {
+    res.send(await google.new_calendar_event(req.query.token, 'test', 'EpitechPAris', 'test', '2'));
 })
+
+/*   -------------------------------    OAUTH    -------------------------------   */
 
 app.get('/oauth', async (req, res) => {
     const id = req.query.state;
@@ -73,7 +76,11 @@ app.get('/oauth', async (req, res) => {
         'token auth': code
     });
 
-    await oauth.getAccesToken(id, code);
+    res.send(await oauth.getAccesToken(id, code));
+})
+
+app.get('/get_oauth_url', (req, res) => {
+    res.send(oauth.getUrl(req.query.id));
 })
 
 /*   -------------------------------    BASIC LOGIN/REGISTER    -------------------------------   */
