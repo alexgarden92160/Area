@@ -72,7 +72,7 @@ app.get('/oauth', async (req, res) => {
         'id': id,
         'token auth': code
     });
-    
+
     await oauth.getAccesToken(id, code);
 })
 
@@ -635,6 +635,7 @@ app.post("/reaction/new_calendar_event", (req, res) => {
     const location = req.body.location;
     const description = req.body.description;
     const time = req.body.time;
+    const actionId = req.body.actionId;
     const id = req.body.id;
 
     const getActions = "select actions from user where id=?";
