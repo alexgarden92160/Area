@@ -21,6 +21,7 @@ const Login = () => {
       if (res.status === 200) {
         sessionStorage.setItem("isLoggedIn", true);
         sessionStorage.setItem("id", res.data[0].id);
+        sessionStorage.setItem("username", username)
 
         axios.post("http://onearea.online:3000/service/active/getall", {
           id: res.data[0].id

@@ -63,7 +63,7 @@ export default function Reaction(props) {
 
 
     return (
-        <div className='widget'>
+        <div className='widget-reac'>
             {create_front()}
             <button onClick={post_param} type="submit">Save</button>
         </div>

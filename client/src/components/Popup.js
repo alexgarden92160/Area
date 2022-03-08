@@ -31,6 +31,9 @@ function Popup(props) {
                 }
             });
         });
+        let data = sessionStorage.getItem("actionSet").split(",")
+        data.push(nm)
+        sessionStorage.setItem("actionSet", data)
         Home.instance.addActions(<Pattern actionName={nm} type={params} name={n} val={value} reac={reac} />)
     }
 
