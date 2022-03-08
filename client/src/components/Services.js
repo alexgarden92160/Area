@@ -32,6 +32,8 @@ function Services(props) {
     if (props.name === "intra") {
       return <input value={vari} onChange={(e) => setVari(e.target.value)} />
     }
+    if (props.name === "google")
+      setVari(sessionStorage.getItem("access-token"))
     return
   }
 

@@ -97,7 +97,7 @@ class Home extends React.Component {
     var data = sessionStorage.getItem("actionSet").split(",");
     console.log(data.length)
     for (var i = 0; i < data.length; i++) {
-      if (data[i] != "") {
+      if (data[i] !== "") {
         this.loadAction(data[i], i)
       }
     }
