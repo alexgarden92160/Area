@@ -72,8 +72,8 @@ function cronFunc() {
                                             + ": " + reaction.message);
                                         break;
                                     case "new_calendar_event":
-                                        await google.new_calendar_event(JSON.parse(user.services).google.token, action.title,
-                                            action.location, action.description, action.time)
+                                        await google.new_calendar_event(JSON.parse(user.services).google.token, reaction.title,
+                                            reaction.location, reaction.description, reaction.time)
                                         break;
 
                                 }
