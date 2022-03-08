@@ -35,10 +35,10 @@ function cronFunc() {
                                 var _status = await intra.check_gpa(JSON.parse(user.services).intra.token, action.number, action.symbol)
                                 break;
                             case "check_temperature":
-                                var _status = await weather.check_temperature(action.city, action.threshold);
+                                var _status = await weather.check_temperature(action.city, action.threshold, action.symbol);
                                 break;
                             case "check_humidity":
-                                var _status = await weather.check_humidity(action.city, action.threshold);
+                                var _status = await weather.check_humidity(action.city, action.threshold, action.symbol);
                                 break;
                             case "check_crypto_value":
                                 var _status = await crypto.check_crypto_value(action.crypto, action.value, action.symbol);
