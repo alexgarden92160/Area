@@ -28,7 +28,7 @@ async function getAccesToken(id, code) {
         code: code,
         client_id: '171093942489-7pe0ilftvscuv5runqumdoab1la5c4la.apps.googleusercontent.com',
         client_secret: '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',
-        redirect_uri: 'http://localhost/oauth',
+        redirect_uri: 'http://localhost:3000/oauth',
         grant_type: 'authorization_code'
     });
 
