@@ -85,7 +85,7 @@ class Home extends React.Component {
     this.addActions(<Patterndef actionName={nm} name={n} id={i} />)
   }
   async loadAvailableAc() {
-    await axios.post("http://onearea.online:3000/action/getall", {
+    await axios.post("https://onearea.online:3000/action/getall", {
       id: sessionStorage.getItem("id")
     }).then(res => {
       let data = []
@@ -136,7 +136,7 @@ class Home extends React.Component {
     //   widgets: sessionStorage.getItem("widgets")
     // })
     // this.setState({ components: tmpcomp, ids: tmpids })
-    axios.post("http://onearea.online:3000/action/remove", {
+    axios.post("https://onearea.online:3000/action/remove", {
       id: id,
       actionId: action_id
     }).then(res => console.log(res))

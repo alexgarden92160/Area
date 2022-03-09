@@ -16,7 +16,7 @@ export default function Patterndef(props) {
     let reactionname = ""
 
     async function getInformation() {
-        await axios.post("http://onearea.online:3000/action/getall", {
+        await axios.post("https://onearea.online:3000/action/getall", {
             id: sessionStorage.getItem("id")
         }).then((res) => {
             // for (var i = 0; i < name.length; i++) {

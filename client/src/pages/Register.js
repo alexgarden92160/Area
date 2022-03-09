@@ -12,7 +12,7 @@ const Register = () => {
   const getConnection = async (e) => {
     e.preventDefault();
 
-    axios.post("http://onearea.online:3000/register", {
+    axios.post("https://onearea.online:3000/register", {
       username: username,
       password: password,
     }).then((res) => {
@@ -23,7 +23,7 @@ const Register = () => {
         sessionStorage.setItem("id", res.data[0].id);
         sessionStorage.setItem("username", username);
 
-        axios.post("http://onearea.online:3000/active/getall", {
+        axios.post("https://onearea.online:3000/active/getall", {
           id: res.data[0].id
         }).then((resa) => {
           if (resa.status === 200) {
