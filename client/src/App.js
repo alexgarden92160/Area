@@ -22,7 +22,7 @@ export default function App() {
         <Route exact path="/register" element={
           sessionStorage.getItem("isLoggedIn")
             ? <Navigate to="/" />
-            : <Login />
+            : <Register />
         } />
         <Route exact path="/" element={sessionStorage.getItem("isLoggedIn")
           ? <Home />
