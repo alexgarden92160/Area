@@ -11,7 +11,7 @@ function Services(props) {
       setAc("Disable")
       sessionStorage.setItem(props.name, true);
       await axios.post(
-        `http://onearea.online:3000/service/active/set`, {
+        `https://onearea.online:3000/service/active/set`, {
         service_name: props.name,
         active_state: true,
         id: sessionStorage.getItem("id")
@@ -21,7 +21,7 @@ function Services(props) {
       setAc("Enable")
       sessionStorage.setItem(props.name, false);
       await axios.post(
-        `http://onearea.online:3000/service/active/set`, {
+        `https://onearea.online:3000/service/active/set`, {
         service_name: props.name,
         active_state: false,
         id: sessionStorage.getItem("id")
@@ -41,7 +41,7 @@ function Services(props) {
 
   function send_token() {
 
-    axios.post(`http://onearea.online:3000/service/token/set`, {
+    axios.post(`https://onearea.online:3000/service/token/set`, {
       service_name: props.name,
       token: vari,
       id: sessionStorage.getItem("id")
