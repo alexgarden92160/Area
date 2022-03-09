@@ -13,6 +13,7 @@ const fs = require('fs');
 const AboutJson = require('./about.json');
 const cron = require('./cron.js');
 const oauth = require('./oauth/google');
+const google = require('./actions/google');
 
 app.use(bodyParser.json());
 app.use(cors())
@@ -22,28 +23,28 @@ mailer.init();
 
 /*   -------------------------------    HTTP    -------------------------------   */
 
-app.listen(port, () => {
-    console.log(`Server listening at http://localhost:${port}`);
-})
+// app.listen(port, () => {
+//     console.log(`Server listening at http://localhost:${port}`);
+// })
 
 /*   -------------------------------    HTTPS    -------------------------------   */
 
-// const sslServer = https.createServer(
-//     {
-//         key: fs.readFileSync(path.join(__dirname, 'cert', 'HSSL-61f1dbc334b67.key')),
-//         ca: [
-//             fs.readFileSync(path.join(__dirname, 'cert', 'AAACertificateServices.crt')),
-//             fs.readFileSync(path.join(__dirname, 'cert', 'USERTrustRSAAAACA.crt')),
-//             fs.readFileSync(path.join(__dirname, 'cert', 'SectigoRSADomainValidationSecureServerCA.crt'))
-//         ],
-//         cert: fs.readFileSync(path.join(__dirname, 'cert', 'onearea_online.crt'))
-//     },
-//     app
-// );
+const sslServer = https.createServer(
+    {
+        key: fs.readFileSync(path.join(__dirname, 'cert', 'HSSL-61f1dbc334b67.key')),
+        ca: [
+            fs.readFileSync(path.join(__dirname, 'cert', 'AAACertificateServices.crt')),
+            fs.readFileSync(path.join(__dirname, 'cert', 'USERTrustRSAAAACA.crt')),
+            fs.readFileSync(path.join(__dirname, 'cert', 'SectigoRSADomainValidationSecureServerCA.crt'))
+        ],
+        cert: fs.readFileSync(path.join(__dirname, 'cert', 'onearea_online.crt'))
+    },
+    app
+);
 
-// sslServer.listen(port, () => {
-//     console.log('Secure server on port 3000')
-// });
+sslServer.listen(port, () => {
+    console.log('Secure server on port 3000')
+});
 
 app.get("/", (req, res) => {
     res.send("Server Instance V2");
@@ -60,9 +61,11 @@ app.get("/test", (req, res) => {
     })
 })
 
-app.get("/test_api", (req, res) => {
-    res.send(oauth.getUrl(3));
+app.get("/test_api", async (req, res) => {
+    res.send(await google.new_calendar_event(req.query.token, 'test', 'EpitechPAris', 'test', '2'));
 })
+
+/*   -------------------------------    OAUTH    -------------------------------   */
 
 app.get('/oauth', async (req, res) => {
     const id = req.query.state;
@@ -73,7 +76,11 @@ app.get('/oauth', async (req, res) => {
         'token auth': code
     });
 
-    await oauth.getAccesToken(id, code);
+    res.send(await oauth.getAccesToken(id, code));
+})
+
+app.get('/get_oauth_url', (req, res) => {
+    res.send(oauth.getUrl(req.query.id));
 })
 
 /*   -------------------------------    BASIC LOGIN/REGISTER    -------------------------------   */

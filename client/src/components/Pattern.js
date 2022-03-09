@@ -69,7 +69,7 @@ export default function Pattern(props) {
 
     const post_param = async () => {
         jsonfinal = make_json()
-        await axios.post(`http://onearea.online:3000/action/${props.actionName}`, jsonfinal
+        await axios.post(`https://onearea.online:3000/action/${props.actionName}`, jsonfinal
         ).then(resa => { setAc(resa.data); console.log(ac) })
     }
 

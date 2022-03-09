@@ -16,7 +16,7 @@ const Login = () => {
   const getConnection = async (e) => {
     e.preventDefault();
 
-    axios.post("http://onearea.online:3000/login", {
+    axios.post("https://onearea.online:3000/login", {
       username: username,
       password: password
     }).then((res) => {
@@ -26,7 +26,7 @@ const Login = () => {
         sessionStorage.setItem("id", res.data[0].id);
         sessionStorage.setItem("username", username)
 
-        axios.post("http://onearea.online:3000/service/active/getall", {
+        axios.post("https://onearea.online:3000/service/active/getall", {
           id: res.data[0].id
         }).then((resa) => {
           console.log(resa.status)

@@ -110,7 +110,7 @@ class Global {
     }
 
     static loadUserData() {
-        axios.post("http://onearea.online:3000/service/active/getall", { id: this.id }
+        axios.post("https://onearea.online:3000/service/active/getall", { id: this.id }
         ).then((value) => {
             var serv = value.data;
 
@@ -125,7 +125,7 @@ class Global {
 
     static loadData() {
         this.services = []
-        axios.get("http://onearea.online:3000/about.json").then((value) => {
+        axios.get("https://onearea.online:3000/about.json").then((value) => {
             for (var s in value.data["services"]) {
                 var newService = new Service(value.data["services"][s]["name"]);
                 for (var a in value.data["services"][s]["actions"]) {

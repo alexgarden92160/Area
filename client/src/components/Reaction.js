@@ -57,7 +57,7 @@ export default function Reaction(props) {
 
     function post_param() {
         jsonfinal = make_json()
-        axios.post(`http://onearea.online:3000/reaction/${props.actionName}`, jsonfinal
+        axios.post(`https://onearea.online:3000/reaction/${props.actionName}`, jsonfinal
         ).then(resa => console.log(resa))
     }
 
